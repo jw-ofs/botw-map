@@ -135,7 +135,7 @@
   .reg-bar>div{height:100%;background:linear-gradient(90deg,var(--cyan),var(--good));transition:width .35s}
 
   /* Korok ground/flight subfilter */
-  .ksub{display:flex;gap:6px;padding:0 9px 8px 43px}
+  .ksub{display:flex;flex-wrap:wrap;gap:6px;padding:0 9px 8px 43px}
   .kpill{font-size:10.5px;padding:3px 10px;border-radius:11px;border:1px solid var(--line);color:var(--muted);cursor:pointer;user-select:none}
   .kpill.on{background:var(--good);color:#06220a;border-color:var(--good);font-weight:600}
 
@@ -270,13 +270,15 @@ function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, c => ({"&":"&am
 function wikiUrl(name){ return "https://zelda.fandom.com/wiki/" + encodeURIComponent(name.replace(/ /g,"_")); }
 const NO_WIKI = new Set(["korok","region"]);
 const KT_LABEL = { ground:"🌿 Ground korok", fly:"🍃 Flight korok" };
+const CT_LABEL = { rupee:"💜 Rupees", gem:"💎 Gem / material", arrow:"🏹 Arrows", gear:"⚔️ Weapon / armor", other:"✦ Special" };
 
 function popupHtml(d, cat){
   const on = !!found[d.id];
   const wiki = NO_WIKI.has(cat.id) ? "" :
     `<a class="pop-wiki" href="${wikiUrl(d.name)}" target="_blank" rel="noopener">Wiki ↗</a>`;
   const img = d.img ? `<img class="pop-img" src="${esc(d.img)}" loading="lazy" onerror="this.remove()">` : "";
-  const type = d.kt ? `<div class="pop-type">${KT_LABEL[d.kt]||""}</div>` : "";
+  const tl = d.kt ? KT_LABEL[d.kt] : (d.ct ? CT_LABEL[d.ct] : "");
+  const type = tl ? `<div class="pop-type">${tl}</div>` : "";
   const region = d.region ? `<span class="pop-region">◈ ${esc(d.region)}</span>` : "";
   return `
     ${img}
@@ -350,27 +352,38 @@ Object.keys(groups).forEach(gName => {
   catsEl.appendChild(gEl);
 });
 
-/* ---- Korok ground/flight subfilter ---- */
-const korokFilter = { ground:true, fly:true };
-(function(){
-  const krow = document.querySelector('.cat[data-cat="korok"]');
-  if(!krow) return;
+/* ---- Sub-filters: korok ground/flight, chest content type ---- */
+const subFilters = {
+  korok: { field:"kt", state:{ground:true,fly:true}, pills:[["ground","🌿 Ground"],["fly","🍃 Flight"]] },
+  chest: { field:"ct", state:{gear:true,gem:true,arrow:true,rupee:true,other:true},
+           pills:[["gear","⚔️ Gear"],["gem","💎 Gems"],["arrow","🏹 Arrows"],["rupee","💜 Rupees"],["other","✦ Other"]] },
+};
+function passSub(r){
+  const sf = subFilters[r.cat.id];
+  if(!sf) return true;
+  const v = r.data[sf.field];
+  return v == null || sf.state[v] !== false;
+}
+Object.keys(subFilters).forEach(catId => {
+  const row = document.querySelector(`.cat[data-cat="${catId}"]`);
+  if(!row) return;
+  const sf = subFilters[catId];
   const sub = document.createElement("div"); sub.className="ksub";
-  sub.innerHTML = `<span class="kpill on" data-kt="ground">🌿 Ground</span><span class="kpill on" data-kt="fly">🍃 Flight</span>`;
-  krow.after(sub);
+  sub.innerHTML = sf.pills.map(([k,lbl]) => `<span class="kpill on" data-k="${k}">${lbl}</span>`).join("");
+  row.after(sub);
   sub.querySelectorAll(".kpill").forEach(p => p.onclick = (e) => {
     e.stopPropagation();
-    const kt = p.dataset.kt; korokFilter[kt] = !korokFilter[kt];
-    p.classList.toggle("on", korokFilter[kt]); rebuildCluster();
+    const k = p.dataset.k; sf.state[k] = !sf.state[k];
+    p.classList.toggle("on", sf.state[k]); rebuildCluster();
   });
-})();
+});
 
 /* ---- Cluster membership = category on (+ not hidden when found) ---- */
 const searchEl = document.getElementById("search");
 function rebuildCluster(){
   const vis = markerRefs.filter(r => !r.isRegion && catState[r.cat.id]
       && !(hideFound && found[r.data.id])
-      && !(r.cat.id==="korok" && r.data.kt && !korokFilter[r.data.kt])
+      && passSub(r)
     ).map(r => r.marker);
   cluster.clearLayers();
   cluster.addLayers(vis);

@@ -3,7 +3,7 @@
 A self-contained, **fully offline** Map-Genie–style interactive map of Hyrule, built with Leaflet.
 Double-click `index.html` (or serve the folder) and explore — tiles, data, and library are all local.
 
-![categories](https://img.shields.io/badge/markers-1288-5ad1e6) shrines · towers · koroks · enemies · places · memories route
+![categories](https://img.shields.io/badge/markers-2668-5ad1e6) shrines · towers · koroks · treasure · enemies · places · memories route
 
 ## Run it
 
@@ -22,6 +22,8 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
   dashed path + step-by-step side panel), under the *Routes* group.
 - **Korok seeds** split into **Ground / Flight** sub-filters; each pin shows its in-game **hint
   text** and **guide thumbnail**.
+- **Treasure chests** (1,197) with itemized contents and a Rupees/Gems/Arrows/Gear/Other
+  sub-filter; plus **Guardians** (154), **Lynels** (26), and the **3 Dragons**.
 - Marker **clustering**; **progress tracking** (localStorage) with a live completion %.
 - **Search** with fly-to, **category filters**, **hide-found**, **export/import** JSON,
   **share-view**, **deep-links** to a single marker (🔗 in any popup), and hover tooltips.
@@ -32,7 +34,8 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
 |---|---|
 | Progress | Shrines (120), EX/DLC Shrines (16), Sheikah Towers (15), Divine Beasts (4) |
 | Collectibles | Korok Seeds (900 — Ground/Flight filter, hint + thumbnail) |
-| Enemies | Hinox (40), Stone Talus (40), Molduga (4) |
+| Treasure | Treasure Chests (1,197 — content filter: Rupees / Gems / Arrows / Gear / Other) |
+| Enemies | Hinox (40), Stone Talus (40), Molduga (4), Guardians (154), Lynels (26), Dragons (3) |
 | Places | Towns & Villages (9), Stables (15), Great Fairy Fountains (4, named), Ancient Tech Labs (2) |
 | Reference | Location Labels (119, as text — Hyrule Castle interior rooms excluded) |
 | Routes | Captured Memories (13 ordered steps) |

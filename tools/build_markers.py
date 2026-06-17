@@ -14,8 +14,30 @@ import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "_cache", "Data.cpp")
+MLOC = os.path.join(ROOT, "_cache", "map_locations.js")
 OUT = os.path.join(ROOT, "markers.js")
 QOUT = os.path.join(ROOT, "quests.js")
+
+SOURCES = {
+    SRC: "https://raw.githubusercontent.com/lud99/botw-unexplored/master/source/Data.cpp",
+    MLOC: "https://raw.githubusercontent.com/MrCheeze/botw-object-map/gh-pages/map_locations.js",
+}
+
+
+def ensure(path):
+    """Download a source file into _cache/ if it isn't already present."""
+    if not os.path.exists(path):
+        import urllib.request
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        print("downloading", os.path.basename(path), "...")
+        urllib.request.urlretrieve(SOURCES[path], path)
+    return path
+
+
+def load_locations():
+    """Parse MrCheeze/botw-object-map map_locations.js (var locations = {...};)."""
+    raw = open(ensure(MLOC), encoding="utf-8", errors="replace").read()
+    return json.loads(raw[raw.index("{"):raw.rindex("}") + 1])
 
 NUM = r"(-?\d+(?:\.\d+)?)"   # float/int, optional trailing 'f' consumed separately
 F = r"f?"
@@ -60,7 +82,7 @@ def proj(x, y):
 
 
 def main():
-    t = open(SRC, encoding="utf-8", errors="replace").read()
+    t = open(ensure(SRC), encoding="utf-8", errors="replace").read()
     markers = []
 
     # ---- Korok hint table: { id, { "text", "image" } } ----
@@ -129,6 +151,49 @@ def main():
             cat, desc = "region", ""
         markers.append(dict(id=f"l{hsh}", cat=cat, name=name, px=px, py=py, desc=desc))
 
+    # ---- Treasure chests + overworld enemies (Guardians/Lynels/Dragons) from map_locations.js ----
+    loc = load_locations()
+    GEMS = {"Opal", "Amber", "Topaz", "Sapphire", "Ruby", "Diamond", "Luminous Stone",
+            "Flint", "Star Fragment", "Giant Ancient Core", "Ancient Core"}
+    CHEST_OTHER = {"Travel Medallion", "Hestu's Maracas", "Korok Leaf", "Mighty Bananas", "Treasure Chest"}
+
+    def chest_class(c):
+        if "Rupee" in c:
+            return "rupee"
+        if "Arrow" in c:
+            return "arrow"
+        if c in GEMS or "Scale" in c or "Fang" in c:
+            return "gem"          # gems, ores, dragon parts (materials)
+        if c in CHEST_OTHER:
+            return "other"
+        return "gear"             # weapons, shields, bows, armor
+
+    ci = gi = li = di = 0
+    for key, e in loc.items():
+        pts, nm = e["locations"], e["display_name"]
+        if key.startswith("TBox"):
+            content = nm.split(":", 1)[1] if ":" in nm else nm
+            ct = chest_class(content)
+            for x, z in pts:
+                px, py = proj(x, z)
+                markers.append(dict(id=f"c{ci}", cat="chest", name=content, px=px, py=py,
+                                    desc="Treasure Chest", ct=ct)); ci += 1
+        elif key.startswith("Enemy_Guardian"):
+            for x, z in pts:
+                px, py = proj(x, z)
+                markers.append(dict(id=f"gd{gi}", cat="guardian", name=nm, px=px, py=py, desc="")); gi += 1
+        elif key.startswith("Enemy_Lynel") and "_Far" not in key:
+            label = nm.split(":")[0]
+            for x, z in pts:
+                px, py = proj(x, z)
+                markers.append(dict(id=f"ly{li}", cat="lynel", name=label, px=px, py=py, desc="")); li += 1
+        elif key.startswith("Enemy_Dragon") and "_Far" not in key and "_Grudge" not in key:
+            for x, z in pts:
+                px, py = proj(x, z)
+                markers.append(dict(id=f"dr{di}", cat="dragon", name=nm, px=px, py=py,
+                                    desc="Roams a regional circuit")); di += 1
+    print(f"Loot: chests={ci} guardians={gi} lynels={li} dragons={di}")
+
     # ---- Region assignment: nearest of the 15 Sheikah Towers (BotW's canonical map regions) ----
     towers = [(m["name"].replace(" Tower", ""), m["px"], m["py"]) for m in markers if m["cat"] == "tower"]
     for m in markers:
@@ -141,9 +206,13 @@ def main():
         dict(group="Progress", id="tower", name="Sheikah Towers", icon="\U0001f5fc", color="#5ad1e6"),
         dict(group="Progress", id="divinebeast", name="Divine Beasts", icon="\U0001f409", color="#d14e8c"),
         dict(group="Collectibles", id="korok", name="Korok Seeds", icon="\U0001f343", color="#6fc24f"),
+        dict(group="Treasure", id="chest", name="Treasure Chests", icon="\U0001f4b0", color="#d9b24a"),
         dict(group="Enemies", id="hinox", name="Hinox", icon="\U0001f479", color="#c0504d"),
         dict(group="Enemies", id="talus", name="Stone Talus", icon="\U0001faa8", color="#9a959a"),
         dict(group="Enemies", id="molduga", name="Molduga", icon="\U0001f988", color="#d9a441"),
+        dict(group="Enemies", id="guardian", name="Guardians", icon="\U0001f47e", color="#d2674f"),
+        dict(group="Enemies", id="lynel", name="Lynels", icon="\U0001f981", color="#a8472c"),
+        dict(group="Enemies", id="dragon", name="Dragons", icon="\U0001f432", color="#76b88a"),
         dict(group="Places", id="town", name="Towns & Villages", icon="\U0001f3d8️", color="#5b9bd5"),
         dict(group="Places", id="stable", name="Stables", icon="\U0001f434", color="#b07a4a"),
         dict(group="Places", id="fairy", name="Great Fairy Fountains", icon="\U0001f9da", color="#ff7fd0"),
