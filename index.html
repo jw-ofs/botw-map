@@ -147,6 +147,24 @@
   .leaflet-tooltip-top:before{border-top-color:var(--line)}
   .leaflet-tooltip-bottom:before{border-bottom-color:var(--line)}
 
+  /* Enemy combat chips */
+  .pop-stat{font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:5px 8px;margin:0 0 5px}
+  .pop-weak{color:#b9f0b0;border-color:#2f5a32;background:#172a18}
+  .pop-weak b{color:#d7ffce}
+  .pop-deals{color:#eaa99e;border-color:#5a302b;background:#2a1a17}
+  .pop-deals b{color:#ffb4a6}
+  .pop-sum{font-size:12px;color:var(--muted);margin:0 0 8px;line-height:1.45}
+  /* Per-marker notes */
+  .pop-note{width:100%;box-sizing:border-box;background:var(--panel2);border:1px solid var(--line);border-radius:7px;color:var(--text);font:inherit;font-size:12px;padding:6px 8px;margin:2px 0 0;resize:vertical;min-height:34px}
+  .pop-note:focus{outline:none;border-color:var(--cyan)}
+  .pin{position:relative}
+  .note-dot{position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;background:var(--cyan);border:1.5px solid #08141b}
+  /* Toast + undo */
+  #toast{position:absolute;bottom:16px;left:50%;transform:translateX(-50%) translateY(20px);z-index:1500;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 13px;display:flex;gap:13px;align-items:center;font-size:12.5px;box-shadow:0 6px 22px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.25s}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+  #toast .undo{cursor:pointer;color:var(--cyan);font-weight:600}
+  #toast .undo:hover{text-decoration:underline}
+
   @media(max-width:640px){
     #sidebar{position:absolute;z-index:1100;height:100%}
     #togglebar{left:auto;right:10px;z-index:1200}
@@ -187,6 +205,10 @@
         <div class="btn" id="shareBtn">Share view</div>
         <div class="btn" id="reset">Reset</div>
       </div>
+      <div class="row">
+        <div class="btn" id="markVis">✓ Mark visible</div>
+        <div class="btn" id="clearVis">Clear visible</div>
+      </div>
       <input type="file" id="importFile" accept="application/json" style="display:none">
     </div>
     <div class="cats" id="cats"></div>
@@ -198,12 +220,14 @@
   </div>
   <div id="coord">px: 0, py: 0</div>
   <div id="questPanel"></div>
+  <div id="toast"></div>
 </div>
 
 <script src="vendor/leaflet/leaflet.js"></script>
 <script src="vendor/leaflet/leaflet.markercluster.js"></script>
 <script src="markers.js"></script>
 <script src="quests.js"></script>
+<script src="bossdata.js"></script>
 <script>
 /* ============================================================
    Base map = datamined BotW Hyrule tiles (24000x20000), served
@@ -240,6 +264,9 @@ map.fitBounds(bounds);
 const SAVE_KEY = "botw-map-found-v1";
 let found = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
 const saveFound = () => localStorage.setItem(SAVE_KEY, JSON.stringify(found));
+const NOTES_KEY = "botw-map-notes-v1";
+let notes = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}");
+const saveNotes = () => localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
 
 /* ---- State ---- */
 const catState = {};
@@ -257,12 +284,13 @@ const catsEl = document.getElementById("cats");
 const groups = {};
 CATEGORIES.forEach(c => { (groups[c.group] ||= []).push(c); });
 
-function pinHtml(cat, isDone){
-  return `<div class="pin ${isDone?'done':''}" style="background:${cat.color};width:24px;height:24px">${cat.icon}</div>`;
+function pinHtml(cat, isDone, noted){
+  return `<div class="pin ${isDone?'done':''}" style="background:${cat.color};width:24px;height:24px">${cat.icon}${noted?'<i class="note-dot"></i>':''}</div>`;
 }
-function divIcon(cat, isDone){
-  return L.divIcon({ html: pinHtml(cat, isDone), className:"", iconSize:[24,24], iconAnchor:[12,12], popupAnchor:[0,-14] });
+function divIcon(cat, isDone, noted){
+  return L.divIcon({ html: pinHtml(cat, isDone, noted), className:"", iconSize:[24,24], iconAnchor:[12,12], popupAnchor:[0,-14] });
 }
+function iconFor(d, cat){ return divIcon(cat, !!found[d.id], !!notes[d.id]); }
 function regionIcon(name){
   return L.divIcon({ html:`<div class="region-label">${name}</div>`, className:"", iconSize:[0,0], iconAnchor:[0,0] });
 }
@@ -271,6 +299,15 @@ function wikiUrl(name){ return "https://zelda.fandom.com/wiki/" + encodeURICompo
 const NO_WIKI = new Set(["korok","region"]);
 const KT_LABEL = { ground:"🌿 Ground korok", fly:"🍃 Flight korok" };
 const CT_LABEL = { rupee:"💜 Rupees", gem:"💎 Gem / material", arrow:"🏹 Arrows", gear:"⚔️ Weapon / armor", other:"✦ Special" };
+function bossHtml(d){
+  const b = window.BOSSDATA && BOSSDATA[d.name];
+  if(!b) return "";
+  let h = "";
+  if(b.weak && b.weak.length) h += `<div class="pop-stat pop-weak"><b>Weak</b> ${b.weak.map(esc).join(" · ")}</div>`;
+  if(b.deals && b.deals.length) h += `<div class="pop-stat pop-deals"><b>Deals</b> ${b.deals.map(esc).join(" · ")}</div>`;
+  if(b.tip) h += `<div class="pop-sum">🛡 ${esc(b.tip)}</div>`;
+  return h;
+}
 
 function popupHtml(d, cat){
   const on = !!found[d.id];
@@ -286,11 +323,13 @@ function popupHtml(d, cat){
     <div class="pop-t">${esc(d.name)}</div>
     ${type}
     ${d.desc ? `<div class="pop-d">${esc(d.desc)}</div>` : ""}
+    ${bossHtml(d)}
     <div class="pop-actions">
       <div class="pop-found ${on?'on':''}" data-id="${d.id}"><span>${on?'✓':'○'}</span><span>${on?'Found':'Mark as found'}</span></div>
       <div class="pop-wiki pop-copy" data-copy="${d.id}" title="Copy link to this marker">🔗</div>
       ${wiki}
-    </div>`;
+    </div>
+    <textarea class="pop-note" data-note="${d.id}" placeholder="Add a note…">${esc(notes[d.id]||"")}</textarea>`;
 }
 function bindPopup(d, cat, m){
   const el = document.querySelector(`.pop-found[data-id="${d.id}"]`);
@@ -298,7 +337,7 @@ function bindPopup(d, cat, m){
     if(found[d.id]) delete found[d.id]; else found[d.id]=1;
     saveFound();
     const ref = markerRefs.find(r=>r.data.id===d.id);
-    ref.marker.setIcon(divIcon(cat, !!found[d.id]));
+    ref.marker.setIcon(iconFor(d, cat));
     m.setPopupContent(popupHtml(d,cat));
     bindPopup(d,cat,m);
     refreshCounts();
@@ -306,6 +345,14 @@ function bindPopup(d, cat, m){
   };
   const cp = document.querySelector(`.pop-copy[data-copy="${d.id}"]`);
   if(cp) cp.onclick = () => copyMarkerLink(d, cp);
+  const nt = document.querySelector(`.pop-note[data-note="${d.id}"]`);
+  if(nt) nt.onchange = nt.onblur = () => {
+    const v = nt.value.trim();
+    if(v) notes[d.id] = v; else delete notes[d.id];
+    saveNotes();
+    const ref = markerRefs.find(r=>r.data.id===d.id);
+    if(ref) ref.marker.setIcon(iconFor(d, cat));
+  };
 }
 async function copyMarkerLink(d, btn){
   location.hash = "m=" + encodeURIComponent(d.id);
@@ -316,7 +363,7 @@ function makeMarker(d){
   const isRegion = d.cat === "region";
   const m = isRegion
     ? L.marker(xy(d.px, d.py), { icon: regionIcon(d.name), interactive:false, keyboard:false })
-    : L.marker(xy(d.px, d.py), { icon: divIcon(cat, !!found[d.id]), title: d.name });
+    : L.marker(xy(d.px, d.py), { icon: iconFor(d, cat), title: d.name });
   if(!isRegion){
     m.bindPopup(() => popupHtml(d, cat), { closeButton:true, minWidth: 230 });
     m.on("popupopen", () => bindPopup(d, cat, m));
@@ -466,9 +513,11 @@ document.getElementById("allOn").onclick  = () => setAll(true);
 document.getElementById("allOff").onclick = () => setAll(false);
 document.getElementById("reset").onclick = () => {
   if(!confirm("Clear all 'found' progress?")) return;
+  const snap = {...found};
   found = {}; saveFound();
-  markerRefs.forEach(r => { if(!r.isRegion) r.marker.setIcon(divIcon(r.cat, false)); });
+  markerRefs.forEach(r => { if(!r.isRegion) r.marker.setIcon(iconFor(r.data, r.cat)); });
   refreshCounts(); rebuildCluster();
+  showToast("All progress cleared", () => restoreFound(snap));
 };
 document.getElementById("sbToggle").onclick = () => document.getElementById("app").classList.toggle("sb-collapsed");
 if (window.matchMedia("(max-width:640px)").matches) document.getElementById("app").classList.add("sb-collapsed");
@@ -479,10 +528,34 @@ document.getElementById("hideFound").onclick = (e) => {
   rebuildCluster();
 };
 
+/* ---- Bulk mark + undo toast ---- */
+const toastEl = document.getElementById("toast");
+let toastTimer = null;
+function showToast(msg, undoFn){
+  toastEl.innerHTML = `<span>${esc(msg)}</span>` + (undoFn ? `<span class="undo">Undo</span>` : "");
+  if(undoFn){ toastEl.querySelector(".undo").onclick = () => { undoFn(); toastEl.classList.remove("show"); }; }
+  toastEl.classList.add("show");
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove("show"), 6000);
+}
+function restoreFound(snap){
+  found = snap; saveFound();
+  markerRefs.forEach(r => { if(!r.isRegion) r.marker.setIcon(iconFor(r.data, r.cat)); });
+  refreshCounts(); rebuildCluster();
+}
+function bulkMark(val){
+  const refs = markerRefs.filter(r => !r.isRegion && catState[r.cat.id] && passSub(r));
+  const snap = {...found};
+  refs.forEach(r => { if(val) found[r.data.id]=1; else delete found[r.data.id]; r.marker.setIcon(iconFor(r.data, r.cat)); });
+  saveFound(); refreshCounts(); rebuildCluster();
+  showToast(`${refs.length} markers ${val ? "marked found" : "cleared"}`, () => restoreFound(snap));
+}
+document.getElementById("markVis").onclick = () => bulkMark(true);
+document.getElementById("clearVis").onclick = () => bulkMark(false);
+
 /* ---- Backup & sharing ---- */
 document.getElementById("exportBtn").onclick = () => {
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([JSON.stringify(found)], { type:"application/json" }));
+  a.href = URL.createObjectURL(new Blob([JSON.stringify({ found, notes })], { type:"application/json" }));
   a.download = "botw-map-progress.json"; a.click(); URL.revokeObjectURL(a.href);
 };
 document.getElementById("importBtn").onclick = () => document.getElementById("importFile").click();
@@ -493,11 +566,14 @@ document.getElementById("importFile").onchange = (e) => {
     try{
       const data = JSON.parse(rd.result);
       if(data && typeof data === "object"){
-        Object.keys(data).forEach(k => found[k] = data[k]);
-        saveFound();
-        markerRefs.forEach(r => { if(!r.isRegion) r.marker.setIcon(divIcon(r.cat, !!found[r.data.id])); });
+        const f = (data.found && typeof data.found === "object") ? data.found : data;   // back-compat: flat found map
+        const n = (data.notes && typeof data.notes === "object") ? data.notes : {};
+        Object.keys(f).forEach(k => found[k] = f[k]);
+        Object.keys(n).forEach(k => notes[k] = n[k]);
+        saveFound(); saveNotes();
+        markerRefs.forEach(r => { if(!r.isRegion) r.marker.setIcon(iconFor(r.data, r.cat)); });
         refreshCounts(); rebuildCluster();
-        alert("Progress imported — " + Object.keys(found).length + " markers found.");
+        alert("Imported — " + Object.keys(found).length + " found, " + Object.keys(notes).length + " notes.");
       }
     }catch(err){ alert("Couldn't read that file."); }
     e.target.value = "";

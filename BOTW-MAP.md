@@ -15,7 +15,7 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
 
 ## Features
 
-- **1,288 datamined markers** across 13 categories (see below), pixel-accurate to the map.
+- **2,668 datamined markers** across 17 categories (see below), pixel-accurate to the map.
 - **Per-region completion** — every marker assigned to its nearest Sheikah Tower; collapsible
   bars track progress across all 15 regions, click to fly there.
 - **Captured Memories route** — the 13 memory spots as an ordered questline (numbered pins +
@@ -24,6 +24,12 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
   text** and **guide thumbnail**.
 - **Treasure chests** (1,197) with itemized contents and a Rupees/Gems/Arrows/Gear/Other
   sub-filter; plus **Guardians** (154), **Lynels** (26), and the **3 Dragons**.
+- **Enemy combat popups** — weaknesses, damage dealt, and a strategy tip for Hinox / Stone Talus /
+  Molduga / Guardians / Lynels / Dragons (`bossdata.js`).
+- **Per-marker notes** — jot a reminder on any pin (a cyan dot marks noted pins); saved and
+  included in export/import.
+- **Bulk actions** — "Mark visible" / "Clear visible" over the current filter, plus **Reset**,
+  all with a one-tap **Undo** toast.
 - Marker **clustering**; **progress tracking** (localStorage) with a live completion %.
 - **Search** with fly-to, **category filters**, **hide-found**, **export/import** JSON,
   **share-view**, **deep-links** to a single marker (🔗 in any popup), and hover tooltips.
