@@ -88,6 +88,65 @@
   .marker-cluster{background:rgba(90,209,230,.22)}
   .marker-cluster div{background:rgba(90,209,230,.82);color:#06222a;font-weight:700;font-family:inherit}
 
+  /* Routes / questlines */
+  .qpin{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #08141b;box-shadow:0 1px 4px rgba(0,0,0,.6)}
+  .qpin span{transform:rotate(45deg);color:#06222a;font-size:11px;font-weight:700}
+  .qpin.start{box-shadow:0 0 0 3px rgba(232,148,60,.45),0 1px 6px rgba(0,0,0,.7);z-index:9999}
+  .qpin.done{filter:grayscale(.6) brightness(.8);opacity:.6}
+  .qpin.current{box-shadow:0 0 0 3px rgba(90,209,230,.6),0 0 11px rgba(90,209,230,.55);z-index:9000}
+  .quest-row .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+  .quest-row.off{opacity:.45}
+  #questPanel{position:absolute;top:12px;right:12px;width:300px;max-height:calc(100% - 24px);z-index:1100;background:var(--panel);border:1px solid var(--line);border-radius:10px;display:none;flex-direction:column;box-shadow:0 8px 28px rgba(0,0,0,.55)}
+  #questPanel.open{display:flex}
+  .qp-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .qp-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
+  .qp-dot{width:12px;height:12px;border-radius:50%}
+  .qp-x{cursor:pointer;color:var(--muted);font-size:13px;padding:2px 7px;border-radius:5px}
+  .qp-x:hover{color:var(--text);background:var(--panel2)}
+  .qp-prog{padding:10px 14px;border-bottom:1px solid var(--line)}
+  .qp-prog-top{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px}
+  .qp-prog-top b{color:var(--good)}
+  .qp-steps{overflow-y:auto;padding:6px}
+  .qp-steps::-webkit-scrollbar{width:7px}.qp-steps::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+  .qs-row{display:flex;align-items:flex-start;gap:9px;padding:8px;border-radius:7px;cursor:pointer}
+  .qs-row:hover{background:var(--panel2)}
+  .qs-row.cur{background:rgba(90,209,230,.1);box-shadow:inset 0 0 0 1px rgba(90,209,230,.4)}
+  .qs-row.done .qs-t{text-decoration:line-through;color:var(--muted)}
+  .qs-chk{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--good);margin-top:1px}
+  .qs-chk.on{border-color:var(--good);background:rgba(111,194,79,.18)}
+  .qs-num{width:18px;height:18px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#06222a;margin-top:1px}
+  .qs-body{flex:1;min-width:0}
+  .qs-t{font-size:12.5px;line-height:1.35}
+
+  /* Region completion accordion */
+  .regions{border-bottom:1px solid var(--line)}
+  .reg-h{display:flex;align-items:center;justify-content:space-between;padding:9px 18px;cursor:pointer;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);user-select:none}
+  .reg-h:hover{color:var(--text)}
+  .reg-h .chev{transition:transform .2s}
+  .reg-h.open .chev{transform:rotate(90deg)}
+  .reg-list{display:none;padding:2px 14px 10px;max-height:230px;overflow-y:auto}
+  .reg-list.open{display:block}
+  .reg-list::-webkit-scrollbar{width:7px}.reg-list::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+  .reg-row{padding:5px 5px;cursor:pointer;border-radius:6px}
+  .reg-row:hover{background:var(--panel2)}
+  .reg-top{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px}
+  .reg-top b{color:var(--good);font-variant-numeric:tabular-nums}
+  .reg-bar{height:5px;background:var(--panel2);border-radius:3px;overflow:hidden}
+  .reg-bar>div{height:100%;background:linear-gradient(90deg,var(--cyan),var(--good));transition:width .35s}
+
+  /* Korok ground/flight subfilter */
+  .ksub{display:flex;gap:6px;padding:0 9px 8px 43px}
+  .kpill{font-size:10.5px;padding:3px 10px;border-radius:11px;border:1px solid var(--line);color:var(--muted);cursor:pointer;user-select:none}
+  .kpill.on{background:var(--good);color:#06220a;border-color:var(--good);font-weight:600}
+
+  /* Rich popup bits */
+  .pop-img{width:100%;max-height:135px;object-fit:cover;border-radius:7px;margin-bottom:8px;background:var(--panel2);display:block}
+  .pop-type{font-size:11px;color:var(--muted);margin-bottom:8px}
+  .pop-region{font-size:10.5px;color:var(--cyan);margin-left:6px}
+  .leaflet-tooltip{background:var(--panel);border:1px solid var(--line);color:var(--text);font-size:11px;box-shadow:0 1px 6px rgba(0,0,0,.5)}
+  .leaflet-tooltip-top:before{border-top-color:var(--line)}
+  .leaflet-tooltip-bottom:before{border-bottom-color:var(--line)}
+
   @media(max-width:640px){
     #sidebar{position:absolute;z-index:1100;height:100%}
     #togglebar{left:auto;right:10px;z-index:1200}
@@ -108,6 +167,7 @@
       <div class="dash-bar"><div id="dashFill"></div></div>
       <div class="dash-sub" id="dashSub">0 / 0 found</div>
     </div>
+    <div id="regionsBox" class="regions"></div>
     <div class="tools">
       <div class="search-wrap">
         <div class="search">
@@ -137,11 +197,13 @@
     <button class="iconbtn" id="sbToggle" title="Toggle sidebar">☰</button>
   </div>
   <div id="coord">px: 0, py: 0</div>
+  <div id="questPanel"></div>
 </div>
 
 <script src="vendor/leaflet/leaflet.js"></script>
 <script src="vendor/leaflet/leaflet.markercluster.js"></script>
 <script src="markers.js"></script>
+<script src="quests.js"></script>
 <script>
 /* ============================================================
    Base map = datamined BotW Hyrule tiles (24000x20000), served
@@ -204,26 +266,33 @@ function divIcon(cat, isDone){
 function regionIcon(name){
   return L.divIcon({ html:`<div class="region-label">${name}</div>`, className:"", iconSize:[0,0], iconAnchor:[0,0] });
 }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 function wikiUrl(name){ return "https://zelda.fandom.com/wiki/" + encodeURIComponent(name.replace(/ /g,"_")); }
-const NO_WIKI = new Set(["korok","region","hinox","talus","molduga"]);
+const NO_WIKI = new Set(["korok","region"]);
+const KT_LABEL = { ground:"🌿 Ground korok", fly:"🍃 Flight korok" };
 
 function popupHtml(d, cat){
   const on = !!found[d.id];
   const wiki = NO_WIKI.has(cat.id) ? "" :
     `<a class="pop-wiki" href="${wikiUrl(d.name)}" target="_blank" rel="noopener">Wiki ↗</a>`;
+  const img = d.img ? `<img class="pop-img" src="${esc(d.img)}" loading="lazy" onerror="this.remove()">` : "";
+  const type = d.kt ? `<div class="pop-type">${KT_LABEL[d.kt]||""}</div>` : "";
+  const region = d.region ? `<span class="pop-region">◈ ${esc(d.region)}</span>` : "";
   return `
-    <div class="pop-cat">${cat.icon} ${cat.name}</div>
-    <div class="pop-t">${d.name}</div>
-    ${d.desc ? `<div class="pop-d">${d.desc}</div>` : ""}
+    ${img}
+    <div class="pop-cat">${cat.icon} ${esc(cat.name)}${region}</div>
+    <div class="pop-t">${esc(d.name)}</div>
+    ${type}
+    ${d.desc ? `<div class="pop-d">${esc(d.desc)}</div>` : ""}
     <div class="pop-actions">
       <div class="pop-found ${on?'on':''}" data-id="${d.id}"><span>${on?'✓':'○'}</span><span>${on?'Found':'Mark as found'}</span></div>
+      <div class="pop-wiki pop-copy" data-copy="${d.id}" title="Copy link to this marker">🔗</div>
       ${wiki}
     </div>`;
 }
 function bindPopup(d, cat, m){
   const el = document.querySelector(`.pop-found[data-id="${d.id}"]`);
-  if(!el) return;
-  el.onclick = () => {
+  if(el) el.onclick = () => {
     if(found[d.id]) delete found[d.id]; else found[d.id]=1;
     saveFound();
     const ref = markerRefs.find(r=>r.data.id===d.id);
@@ -233,6 +302,12 @@ function bindPopup(d, cat, m){
     refreshCounts();
     if(hideFound) rebuildCluster();
   };
+  const cp = document.querySelector(`.pop-copy[data-copy="${d.id}"]`);
+  if(cp) cp.onclick = () => copyMarkerLink(d, cp);
+}
+async function copyMarkerLink(d, btn){
+  location.hash = "m=" + encodeURIComponent(d.id);
+  try{ await navigator.clipboard.writeText(location.href); if(btn){ btn.textContent="✓"; setTimeout(()=>btn.textContent="🔗",1200); } }catch(e){}
 }
 function makeMarker(d){
   const cat = catById[d.cat];
@@ -243,6 +318,7 @@ function makeMarker(d){
   if(!isRegion){
     m.bindPopup(() => popupHtml(d, cat), { closeButton:true, minWidth: 230 });
     m.on("popupopen", () => bindPopup(d, cat, m));
+    if(d.cat !== "korok") m.bindTooltip(d.name, { direction:"top", offset:[0,-12], opacity:.95 });
   }
   const ref = { marker:m, data:d, cat, isRegion };
   markerRefs.push(ref);
@@ -274,10 +350,28 @@ Object.keys(groups).forEach(gName => {
   catsEl.appendChild(gEl);
 });
 
+/* ---- Korok ground/flight subfilter ---- */
+const korokFilter = { ground:true, fly:true };
+(function(){
+  const krow = document.querySelector('.cat[data-cat="korok"]');
+  if(!krow) return;
+  const sub = document.createElement("div"); sub.className="ksub";
+  sub.innerHTML = `<span class="kpill on" data-kt="ground">🌿 Ground</span><span class="kpill on" data-kt="fly">🍃 Flight</span>`;
+  krow.after(sub);
+  sub.querySelectorAll(".kpill").forEach(p => p.onclick = (e) => {
+    e.stopPropagation();
+    const kt = p.dataset.kt; korokFilter[kt] = !korokFilter[kt];
+    p.classList.toggle("on", korokFilter[kt]); rebuildCluster();
+  });
+})();
+
 /* ---- Cluster membership = category on (+ not hidden when found) ---- */
 const searchEl = document.getElementById("search");
 function rebuildCluster(){
-  const vis = markerRefs.filter(r => !r.isRegion && catState[r.cat.id] && !(hideFound && found[r.data.id])).map(r => r.marker);
+  const vis = markerRefs.filter(r => !r.isRegion && catState[r.cat.id]
+      && !(hideFound && found[r.data.id])
+      && !(r.cat.id==="korok" && r.data.kt && !korokFilter[r.data.kt])
+    ).map(r => r.marker);
   cluster.clearLayers();
   cluster.addLayers(vis);
   rebuildRegions();
@@ -315,6 +409,36 @@ function refreshCounts(){
   document.getElementById("dashFill").style.width = p + "%";
   document.getElementById("dashPct").textContent = p + "%";
   document.getElementById("dashSub").textContent = `${d} / ${t} found`;
+  updateRegionCounts();
+}
+
+/* ---- Region completion (each marker assigned to its nearest Sheikah Tower region) ---- */
+const REGION_LIST = [...new Set(MARKERS.map(m => m.region).filter(Boolean))].sort();
+const regionCenter = {};
+markerRefs.forEach(r => { if(r.cat.id==="tower") regionCenter[r.data.region] = r.marker.getLatLng(); });
+const cssId = s => s.replace(/[^a-z0-9]/gi,"_");
+function buildRegions(){
+  const box = document.getElementById("regionsBox");
+  if(!box || !REGION_LIST.length) return;
+  const head = document.createElement("div"); head.className="reg-h";
+  head.innerHTML = `<span><span class="chev">▶</span> Region completion</span>`;
+  const list = document.createElement("div"); list.className="reg-list";
+  REGION_LIST.forEach(rg => {
+    const row = document.createElement("div"); row.className="reg-row"; row.dataset.region=rg;
+    row.innerHTML = `<div class="reg-top"><span>${esc(rg)}</span><b id="rg-${cssId(rg)}">0/0</b></div><div class="reg-bar"><div id="rgbar-${cssId(rg)}"></div></div>`;
+    row.onclick = () => { const c = regionCenter[rg]; if(c) map.flyTo(c, 4.5, {duration:.7}); };
+    list.appendChild(row);
+  });
+  head.onclick = () => { head.classList.toggle("open"); list.classList.toggle("open"); };
+  box.appendChild(head); box.appendChild(list);
+}
+function updateRegionCounts(){
+  REGION_LIST.forEach(rg => {
+    const inR = MARKERS.filter(m => m.region===rg && m.cat!=='region');
+    const tot = inR.length, dn = inR.filter(m => found[m.id]).length, p = tot ? Math.round(dn/tot*100) : 0;
+    const b = document.getElementById("rg-"+cssId(rg)); if(b) b.textContent = `${dn}/${tot}`;
+    const bar = document.getElementById("rgbar-"+cssId(rg)); if(bar) bar.style.width = p+"%";
+  });
 }
 
 /* ---- Controls ---- */
@@ -331,7 +455,7 @@ document.getElementById("reset").onclick = () => {
   if(!confirm("Clear all 'found' progress?")) return;
   found = {}; saveFound();
   markerRefs.forEach(r => { if(!r.isRegion) r.marker.setIcon(divIcon(r.cat, false)); });
-  refreshCounts();
+  refreshCounts(); rebuildCluster();
 };
 document.getElementById("sbToggle").onclick = () => document.getElementById("app").classList.toggle("sb-collapsed");
 if (window.matchMedia("(max-width:640px)").matches) document.getElementById("app").classList.add("sb-collapsed");
@@ -421,12 +545,143 @@ function restoreState(){
     if(p.cats) CATEGORIES.forEach(c => { if(c.id in p.cats){ catState[c.id]=p.cats[c.id]; const row=document.querySelector(`.cat[data-cat="${c.id}"]`); if(row) row.classList.toggle("off", !catState[c.id]); } });
     if(p.hf){ hideFound=true; document.getElementById("hideFound").classList.add("active"); }
   }
+  if(location.hash.startsWith("#m=")){
+    const id = decodeURIComponent(location.hash.slice(3));
+    const ref = markerRefs.find(r => r.data.id===id);
+    if(ref){
+      if(!ref.isRegion && !catState[ref.cat.id]){ catState[ref.cat.id]=true; const row=document.querySelector(`.cat[data-cat="${ref.cat.id}"]`); if(row) row.classList.remove("off"); rebuildCluster(); }
+      setTimeout(() => { if(ref.isRegion) map.flyTo(ref.marker.getLatLng(), 6, {duration:.6}); else cluster.zoomToShowLayer(ref.marker, () => ref.marker.openPopup()); }, 250);
+    }
+    return;
+  }
   const h = location.hash.replace(/^#/,"").split("/");
   if(h.length===3){
     const px=+h[0], py=+h[1], z=+h[2];
     if(isFinite(px)&&isFinite(py)&&isFinite(z)) map.setView(xy(px,py), z, {animate:false});
   }
 }
+
+/* ============================================================
+   ROUTES / QUESTLINES — ordered numbered pins + dashed path +
+   side panel with per-step done state. Currently: Captured Memories.
+   ============================================================ */
+const QL = window.QUESTLINES || [];
+const questState = {}, questLayers = {}, stepMarkers = {};
+let panelQuest = null;
+const QSAVE_KEY = "botw-map-quests-v1";
+let qsave = (function(){ try{ return JSON.parse(localStorage.getItem(QSAVE_KEY)) || {shown:{},done:{}}; }catch(e){ return {shown:{},done:{}}; } })();
+qsave.shown = qsave.shown||{}; qsave.done = qsave.done||{};
+function saveQuests(){ try{ localStorage.setItem(QSAVE_KEY, JSON.stringify(qsave)); }catch(e){} }
+function isDone(id,n){ return !!(qsave.done[id] && qsave.done[id][n]); }
+function qProgress(q){ return { t:q.steps.length, d:q.steps.filter(s=>isDone(q.id,s.n)).length }; }
+function currentN(q){ const s=q.steps.find(s=>!isDone(q.id,s.n)); return s?s.n:0; }
+
+function qIcon(color,n,st){
+  const bg = st.done ? "#39414f" : (st.start ? "#e8943c" : color);
+  const sz = st.start ? 26 : 22;
+  const cls = ["qpin"]; if(st.start)cls.push("start"); if(st.done)cls.push("done"); if(st.current)cls.push("current");
+  return L.divIcon({ html:`<div class="${cls.join(' ')}" style="background:${bg};width:${sz}px;height:${sz}px"><span>${st.done?'✓':n}</span></div>`,
+    className:"", iconSize:[sz,sz], iconAnchor:[sz/2,sz-2], popupAnchor:[0,-(sz-4)] });
+}
+function stepPopup(q,s){
+  const done = isDone(q.id,s.n);
+  return `<div class="pop-cat" style="color:${q.color}">${esc(q.name)}</div>`+
+    `<div class="pop-t">${s.n}. ${esc(s.title)}</div>`+
+    (s.desc?`<div class="pop-d">${esc(s.desc)}</div>`:"")+
+    `<div class="pop-found ${done?'on':''}" data-qd="${q.id}#${s.n}"><span>${done?'✓':'○'}</span><span>${done?'Step complete':'Mark step done'}</span></div>`;
+}
+function renderQuest(q){
+  if(questLayers[q.id]){ map.removeLayer(questLayers[q.id]); delete questLayers[q.id]; }
+  if(!questState[q.id]) return;
+  const lg = L.layerGroup();
+  if(q.steps.length>1) L.polyline(q.steps.map(s=>xy(s.px,s.py)), {color:q.color,weight:2.5,opacity:.6,dashArray:"5,6"}).addTo(lg);
+  const cur = currentN(q);
+  q.steps.forEach(s=>{
+    const st = { start:s.n===1, done:isDone(q.id,s.n), current:s.n===cur };
+    const mk = L.marker(xy(s.px,s.py), {icon:qIcon(q.color,s.n,st), title:`${s.n}. ${s.title}`, zIndexOffset: st.current?3000:(st.start?2000:1000)});
+    mk.bindPopup(()=>stepPopup(q,s), {minWidth:230});
+    mk.on("popupopen", ()=>bindStepPopup(q,s,mk));
+    mk.addTo(lg); stepMarkers[q.id+'#'+s.n]=mk;
+  });
+  lg.addTo(map); questLayers[q.id]=lg;
+}
+function bindStepPopup(q,s,mk){
+  const el = document.querySelector(`.pop-found[data-qd="${q.id}#${s.n}"]`);
+  if(el) el.onclick = () => { toggleStepDone(q,s.n); mk.setPopupContent(stepPopup(q,s)); bindStepPopup(q,s,mk); };
+}
+function toggleStepDone(q,n){
+  if(isDone(q.id,n)) delete qsave.done[q.id][n]; else (qsave.done[q.id] ||= {})[n]=1;
+  saveQuests(); renderQuest(q); updateQuestRow(q);
+  if(panelQuest && panelQuest.id===q.id) fillPanel(q);
+}
+function renderActiveQuests(){ QL.forEach(q=>{ if(questState[q.id]) renderQuest(q); }); }
+
+const qPanel = document.getElementById("questPanel");
+function openQuestPanel(q){
+  panelQuest = q;
+  if(!questState[q.id]){ questState[q.id]=true; qsave.shown[q.id]=1; saveQuests(); renderQuest(q); }
+  updateQuestRow(q); fillPanel(q); qPanel.classList.add("open");
+  if(window.matchMedia("(max-width:640px)").matches) document.getElementById("app").classList.add("sb-collapsed");
+}
+function closeQuestPanel(){ qPanel.classList.remove("open"); panelQuest=null; }
+function fillPanel(q){
+  const {t,d} = qProgress(q), pct = t?Math.round(d/t*100):0, cur = currentN(q);
+  const rows = q.steps.map(s=>{
+    const done = isDone(q.id,s.n), isCur = s.n===cur;
+    return `<div class="qs-row ${done?'done':''} ${isCur?'cur':''}" data-n="${s.n}">`+
+      `<div class="qs-chk ${done?'on':''}" data-chk="${s.n}">${done?'✓':''}</div>`+
+      `<div class="qs-num" style="background:${q.color}">${s.n}</div>`+
+      `<div class="qs-body"><div class="qs-t">${esc(s.title)}</div></div></div>`;
+  }).join("");
+  qPanel.innerHTML =
+    `<div class="qp-head"><div class="qp-title"><span class="qp-dot" style="background:${q.color}"></span>${esc(q.name)}</div><div class="qp-x" id="qpX">✕</div></div>`+
+    `<div class="qp-prog"><div class="qp-prog-top"><span>${d} / ${t} done</span><b>${pct}%</b></div><div class="dash-bar"><div style="width:${pct}%"></div></div></div>`+
+    `<div class="qp-steps">${rows}</div>`;
+  document.getElementById("qpX").onclick = closeQuestPanel;
+  qPanel.querySelectorAll(".qs-row").forEach(row=>{
+    const n = +row.dataset.n, s = q.steps.find(x=>x.n===n);
+    row.querySelector(".qs-chk").onclick = (e)=>{ e.stopPropagation(); toggleStepDone(q,n); };
+    row.onclick = ()=>flyToStep(q,s);
+  });
+}
+function flyToStep(q,s){
+  if(!questState[q.id]){ questState[q.id]=true; renderQuest(q); }
+  map.flyTo(xy(s.px,s.py), Math.max(map.getZoom(), 6), {duration:.6});
+  const mk = stepMarkers[q.id+'#'+s.n];
+  if(mk) setTimeout(()=>mk.openPopup(),380);
+  fillPanel(q);
+}
+function updateQuestRow(q){
+  const row = document.querySelector(`.quest-row[data-q="${q.id}"]`);
+  if(!row) return;
+  row.classList.toggle("off", !questState[q.id]);
+  const {t,d} = qProgress(q);
+  const ct = row.querySelector(".ct"); if(ct) ct.innerHTML = d?`<b>${d}</b>/${t}`:`${t}`;
+}
+function toggleQuest(id){
+  const q = QL.find(x=>x.id===id);
+  if(questState[id] && !(panelQuest && panelQuest.id===id)){ openQuestPanel(q); return; }
+  questState[id] = !questState[id];
+  if(questState[id]) qsave.shown[id]=1; else delete qsave.shown[id];
+  saveQuests(); updateQuestRow(q); renderQuest(q);
+  if(questState[id]) openQuestPanel(q); else if(panelQuest && panelQuest.id===id) closeQuestPanel();
+}
+if(QL.length){
+  const gEl = document.createElement("div");
+  const h = document.createElement("div"); h.className="group-h"; h.textContent="Routes"; gEl.appendChild(h);
+  QL.forEach(q=>{
+    questState[q.id] = false;
+    const row = document.createElement("div"); row.className="cat quest-row off"; row.dataset.q=q.id;
+    row.innerHTML = `<div class="dot" style="background:${q.color}"></div><div class="nm">${esc(q.name)}</div><div class="ct">${q.steps.length}</div>`;
+    row.onclick = ()=>toggleQuest(q.id);
+    gEl.appendChild(row);
+  });
+  catsEl.appendChild(gEl);
+  QL.forEach(q=>{ if(qsave.shown[q.id]) questState[q.id]=true; updateQuestRow(q); });
+  renderActiveQuests();
+}
+
+buildRegions();
 refreshCounts();
 rebuildCluster();
 restoreState();
