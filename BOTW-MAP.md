@@ -24,6 +24,9 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
   text** and **guide thumbnail**.
 - **Treasure chests** (1,197) with itemized contents and a Rupees/Gems/Arrows/Gear/Other
   sub-filter; plus **Guardians** (154), **Lynels** (26), and the **3 Dragons**.
+- **Shrine info popups** — type (Tutorial / Test of Strength / Blessing / Puzzle / Combat), chest
+  reward, and the unlocking Shrine Quest for all **120 shrines** (`shrinedata.js`, sourced and
+  cross-verified from community wikis — 118/120 types independently agreed).
 - **Enemy combat popups** — weaknesses, damage dealt, and a strategy tip for Hinox / Stone Talus /
   Molduga / Guardians / Lynels / Dragons (`bossdata.js`).
 - **Per-marker notes** — jot a reminder on any pin (a cyan dot marks noted pins); saved and

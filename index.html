@@ -228,6 +228,7 @@
 <script src="markers.js"></script>
 <script src="quests.js"></script>
 <script src="bossdata.js"></script>
+<script src="shrinedata.js"></script>
 <script>
 /* ============================================================
    Base map = datamined BotW Hyrule tiles (24000x20000), served
@@ -308,6 +309,19 @@ function bossHtml(d){
   if(b.tip) h += `<div class="pop-sum">🛡 ${esc(b.tip)}</div>`;
   return h;
 }
+const SHRINE_TYPE_COLOR = {
+  "Tutorial":"#7c879b", "Blessing":"#6fc24f", "Combat":"#c0504d", "Puzzle":"#5ad1e6",
+  "Minor Test of Strength":"#e0a23a", "Modest Test of Strength":"#e0822a", "Major Test of Strength":"#d2541f",
+};
+function shrineHtml(d){
+  const s = window.SHRINEDATA && SHRINEDATA[d.name];
+  if(!s) return "";
+  let h = "";
+  if(s.type){ const c = SHRINE_TYPE_COLOR[s.type] || "var(--cyan)"; h += `<div class="pop-stat" style="border-color:${c};color:${c}"><b>${esc(s.type)}</b></div>`; }
+  if(s.quest) h += `<div class="pop-d">📜 Shrine Quest: <b>${esc(s.quest)}</b></div>`;
+  if(s.reward) h += `<div class="pop-d">🎁 Chest: <b>${esc(s.reward)}</b></div>`;
+  return h;
+}
 
 function popupHtml(d, cat){
   const on = !!found[d.id];
@@ -324,6 +338,7 @@ function popupHtml(d, cat){
     ${type}
     ${d.desc ? `<div class="pop-d">${esc(d.desc)}</div>` : ""}
     ${bossHtml(d)}
+    ${shrineHtml(d)}
     <div class="pop-actions">
       <div class="pop-found ${on?'on':''}" data-id="${d.id}"><span>${on?'✓':'○'}</span><span>${on?'Found':'Mark as found'}</span></div>
       <div class="pop-wiki pop-copy" data-copy="${d.id}" title="Copy link to this marker">🔗</div>
