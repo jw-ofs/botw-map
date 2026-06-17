@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "my-project",
+    "intent": "Describe what this project does"
+  },
+  "symbols": {
+    "architecture": {
+      "description": "Core system architecture and provider decisions",
+      "docs": ["docs/architecture.md"],
+      "properties": {
+        "provider": "akamai",
+        "schema_version": 3
+      },
+      "interlocks": {}
+    },
+    "deployment": {
+      "description": "Deployment targets and infrastructure requirements",
+      "docs": ["docs/deployment.md"],
+      "properties": {
+        "expects_provider": "akamai",
+        "expects_schema": 3
+      },
+      "interlocks": {
+        "architecture.provider": "expects_provider",
+        "architecture.schema_version": "expects_schema"
+      }
+    }
+  }
+}

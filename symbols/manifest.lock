@@ -1,0 +1,40 @@
+{
+  "root": "ab0ac97e559493b3",
+  "generated": "2026-05-11T23:19:40Z",
+  "status": "aligned",
+  "symbols": {
+    "architecture": {
+      "hash": "deba8243a9968ff9",
+      "means": "architecture: provider=akamai, schema_version=3",
+      "properties": {
+        "provider": "akamai",
+        "schema_version": 3
+      },
+      "docs": {
+        "docs/architecture.md": {
+          "hash": "20ad246a42d78dc3",
+          "status": "current"
+        }
+      },
+      "interlocks": {}
+    },
+    "deployment": {
+      "hash": "6757baad1fd3dc78",
+      "means": "deployment: expects_provider=akamai, expects_schema=3",
+      "properties": {
+        "expects_provider": "akamai",
+        "expects_schema": 3
+      },
+      "docs": {
+        "docs/deployment.md": {
+          "hash": "aac817e2175db943",
+          "status": "current"
+        }
+      },
+      "interlocks": {
+        "architecture.provider == expects_provider": "PASS",
+        "architecture.schema_version == expects_schema": "PASS"
+      }
+    }
+  }
+}

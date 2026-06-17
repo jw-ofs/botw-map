@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Breath of the Wild — Interactive Map</title>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+<link rel="stylesheet" href="vendor/leaflet/MarkerCluster.css" />
+<link rel="stylesheet" href="vendor/leaflet/MarkerCluster.Default.css" />
+<style>
+  :root{
+    --bg:#0d1418; --panel:#121b21; --panel2:#1b2730; --line:#27333d;
+    --text:#e0ebf2; --muted:#88a0b1; --accent:#e8943c; --cyan:#5ad1e6; --good:#6fc24f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+  #app{display:flex;height:100%}
+
+  #sidebar{width:332px;min-width:332px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;height:100%;transition:margin-left .25s}
+  #app.sb-collapsed #sidebar{margin-left:-332px}
+  .brand{padding:16px 18px 12px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#16242c,transparent)}
+  .brand h1{margin:0;font-size:17px;letter-spacing:1.5px;color:var(--cyan);font-weight:700}
+  .brand h1 span{color:var(--accent)}
+  .brand p{margin:3px 0 0;font-size:11px;color:var(--muted);letter-spacing:.4px}
+  .dash{padding:10px 18px 12px;border-bottom:1px solid var(--line)}
+  .dash-top{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+  .dash-top b{color:var(--good)}
+  .dash-bar{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+  .dash-bar>div{height:100%;background:linear-gradient(90deg,var(--cyan),var(--good));width:0;transition:width .35s}
+  .dash-sub{font-size:10.5px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+  .tools{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+  .search-wrap{position:relative}
+  .search{display:flex;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:7px 10px}
+  .search input{flex:1;background:none;border:none;outline:none;color:var(--text);font-size:13px}
+  .search input::placeholder{color:var(--muted)}
+  .results{display:none;margin-top:4px;background:var(--panel2);border:1px solid var(--line);border-radius:7px;max-height:280px;overflow-y:auto;position:absolute;left:0;right:0;z-index:20}
+  .results::-webkit-scrollbar{width:7px}.results::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+  .res{display:flex;align-items:center;gap:9px;padding:7px 9px;cursor:pointer;font-size:12.5px;border-bottom:1px solid var(--line)}
+  .res:last-child{border-bottom:none}
+  .res:hover{background:var(--panel)}
+  .res-ic{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+  .res-nm{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .res-cat{font-size:10px;color:var(--muted);flex-shrink:0}
+  .res-empty{padding:9px;font-size:12px;color:var(--muted)}
+  .row{display:flex;gap:8px}
+  .btn{flex:1;background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:7px;padding:7px;font-size:11.5px;cursor:pointer;transition:.15s;text-align:center}
+  .btn:hover{border-color:var(--cyan);color:var(--text)}
+  .btn.active{background:var(--cyan);color:#06222a;border-color:var(--cyan);font-weight:600}
+  .cats{flex:1;overflow-y:auto;padding:8px 8px 24px}
+  .cats::-webkit-scrollbar{width:8px}
+  .cats::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+  .group-h{font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);padding:10px 8px 5px}
+  .cat{display:flex;align-items:center;gap:10px;padding:7px 9px;border-radius:7px;cursor:pointer;user-select:none}
+  .cat:hover{background:var(--panel2)}
+  .cat.off{opacity:.38}
+  .cat .ic{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .cat .nm{flex:1;font-size:13px}
+  .cat .ct{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .cat .ct b{color:var(--good)}
+
+  #map{flex:1;height:100%;background:#06121b;cursor:grab}
+  #map:active{cursor:grabbing}
+  .leaflet-container{background:#06121b}
+  #togglebar{position:absolute;top:12px;left:344px;z-index:1000;display:flex;gap:8px;transition:left .25s}
+  #app.sb-collapsed #togglebar{left:12px}
+  .iconbtn{background:rgba(18,27,33,.92);border:1px solid var(--line);color:var(--text);width:38px;height:38px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+  .iconbtn:hover{border-color:var(--cyan)}
+
+  .pin{display:flex;align-items:center;justify-content:center;border-radius:50%;border:2px solid #08141b;box-shadow:0 1px 4px rgba(0,0,0,.6);font-size:13px;transition:transform .1s}
+  .pin:hover{transform:scale(1.25);z-index:9999}
+  .pin.done{filter:grayscale(1) brightness(.7);opacity:.65}
+  .region-label{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;color:#d6e6ef;font-size:12px;font-weight:600;letter-spacing:.8px;text-shadow:0 1px 3px #000,0 0 7px #000,0 0 7px #000;pointer-events:none;opacity:var(--rl-op,.9);transition:opacity .25s}
+
+  .leaflet-popup-content-wrapper{background:var(--panel);color:var(--text);border-radius:10px;border:1px solid var(--line)}
+  .leaflet-popup-tip{background:var(--panel);border:1px solid var(--line)}
+  .leaflet-popup-content{margin:12px 14px;font-size:13px;line-height:1.5}
+  .pop-cat{font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--cyan);margin-bottom:3px}
+  .pop-t{font-size:15px;font-weight:600;margin-bottom:6px}
+  .pop-d{color:var(--muted);margin-bottom:9px;line-height:1.45}
+  .pop-actions{display:flex;gap:8px;align-items:stretch}
+  .pop-found{display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:12.5px;flex:1}
+  .pop-found.on{border-color:var(--good);color:var(--good)}
+  .pop-wiki{display:flex;align-items:center;font-size:11.5px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:7px;padding:0 11px;white-space:nowrap}
+  .pop-wiki:hover{border-color:var(--cyan);color:var(--cyan)}
+  .leaflet-popup-close-button{color:var(--muted)!important}
+
+  #coord{position:absolute;bottom:10px;right:10px;z-index:1000;background:rgba(18,27,33,.9);border:1px solid var(--line);color:var(--muted);font-size:11px;padding:5px 9px;border-radius:6px;font-variant-numeric:tabular-nums;pointer-events:none}
+  .marker-cluster{background:rgba(90,209,230,.22)}
+  .marker-cluster div{background:rgba(90,209,230,.82);color:#06222a;font-weight:700;font-family:inherit}
+
+  @media(max-width:640px){
+    #sidebar{position:absolute;z-index:1100;height:100%}
+    #togglebar{left:auto;right:10px;z-index:1200}
+    #app.sb-collapsed #togglebar{left:10px;right:auto}
+    #coord{display:none}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div class="brand">
+      <h1>BREATH OF THE <span>WILD</span></h1>
+      <p>Interactive Map · Hyrule</p>
+    </div>
+    <div class="dash">
+      <div class="dash-top"><span>Completion</span><span><b id="dashPct">0%</b></span></div>
+      <div class="dash-bar"><div id="dashFill"></div></div>
+      <div class="dash-sub" id="dashSub">0 / 0 found</div>
+    </div>
+    <div class="tools">
+      <div class="search-wrap">
+        <div class="search">
+          <span style="color:var(--muted);margin-right:7px">🔍</span>
+          <input id="search" placeholder="Search shrines, towers, locations…" autocomplete="off">
+        </div>
+        <div id="results" class="results"></div>
+      </div>
+      <div class="row">
+        <div class="btn" id="allOn">Show all</div>
+        <div class="btn" id="allOff">Hide all</div>
+        <div class="btn" id="hideFound">Hide found</div>
+      </div>
+      <div class="row">
+        <div class="btn" id="exportBtn">Export</div>
+        <div class="btn" id="importBtn">Import</div>
+        <div class="btn" id="shareBtn">Share view</div>
+        <div class="btn" id="reset">Reset</div>
+      </div>
+      <input type="file" id="importFile" accept="application/json" style="display:none">
+    </div>
+    <div class="cats" id="cats"></div>
+  </aside>
+
+  <div id="map"></div>
+  <div id="togglebar">
+    <button class="iconbtn" id="sbToggle" title="Toggle sidebar">☰</button>
+  </div>
+  <div id="coord">px: 0, py: 0</div>
+</div>
+
+<script src="vendor/leaflet/leaflet.js"></script>
+<script src="vendor/leaflet/leaflet.markercluster.js"></script>
+<script src="markers.js"></script>
+<script>
+/* ============================================================
+   Base map = datamined BotW Hyrule tiles (24000x20000), served
+   locally from ./tiles. Markers carry pixel (px,py) coordinates
+   that map exactly onto the tiles: px = 2*worldX + 12000,
+   py = 2*worldZ + 10000  (1 game unit = 2 px, origin = center).
+   ============================================================ */
+const CONFIG = { tileUrl:"tiles/{z}/{x}/{y}.webp", tileSize:256, nativeZoom:7, imgW:24000, imgH:20000 };
+const NZ = CONFIG.nativeZoom, SCALE = Math.pow(2, NZ);   // 128
+const xy = (px, py) => L.latLng(-py / SCALE, px / SCALE);
+const fromLatLng = ll => [ Math.round(ll.lng * SCALE), Math.round(-ll.lat * SCALE) ];
+const bounds = L.latLngBounds(xy(0, CONFIG.imgH), xy(CONFIG.imgW, 0));
+
+const map = L.map("map", {
+  crs: L.CRS.Simple,
+  minZoom: 1,
+  maxZoom: NZ + 2,          // allow 2 levels of upscale for korok precision
+  zoomControl: false,
+  attributionControl: false,
+  maxBounds: bounds.pad(0.25),
+  maxBoundsViscosity: 0.7,
+  zoomSnap: 0.25,
+  zoomDelta: 0.5,
+});
+L.control.zoom({ position:"bottomleft" }).addTo(map);
+L.tileLayer(CONFIG.tileUrl, {
+  tileSize: CONFIG.tileSize, minNativeZoom: 0, maxNativeZoom: NZ,
+  noWrap: true, bounds: bounds,
+  updateWhenZooming: false, updateWhenIdle: true, keepBuffer: 3,
+}).addTo(map);
+map.fitBounds(bounds);
+
+/* ---- Progress (localStorage) ---- */
+const SAVE_KEY = "botw-map-found-v1";
+let found = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
+const saveFound = () => localStorage.setItem(SAVE_KEY, JSON.stringify(found));
+
+/* ---- State ---- */
+const catState = {};
+const markerRefs = [];
+const catById = {};
+let hideFound = false;
+CATEGORIES.forEach(c => catById[c.id] = c);
+
+const PREFS_KEY = "botw-map-prefs";
+const SAVED_PREFS = (function(){ try{ return JSON.parse(localStorage.getItem(PREFS_KEY) || "null"); }catch(e){ return null; } })();
+function savePrefs(){ try{ localStorage.setItem(PREFS_KEY, JSON.stringify({ cats:catState, hf:hideFound })); }catch(e){} }
+
+/* ---- Build category list ---- */
+const catsEl = document.getElementById("cats");
+const groups = {};
+CATEGORIES.forEach(c => { (groups[c.group] ||= []).push(c); });
+
+function pinHtml(cat, isDone){
+  return `<div class="pin ${isDone?'done':''}" style="background:${cat.color};width:24px;height:24px">${cat.icon}</div>`;
+}
+function divIcon(cat, isDone){
+  return L.divIcon({ html: pinHtml(cat, isDone), className:"", iconSize:[24,24], iconAnchor:[12,12], popupAnchor:[0,-14] });
+}
+function regionIcon(name){
+  return L.divIcon({ html:`<div class="region-label">${name}</div>`, className:"", iconSize:[0,0], iconAnchor:[0,0] });
+}
+function wikiUrl(name){ return "https://zelda.fandom.com/wiki/" + encodeURIComponent(name.replace(/ /g,"_")); }
+const NO_WIKI = new Set(["korok","region","hinox","talus","molduga"]);
+
+function popupHtml(d, cat){
+  const on = !!found[d.id];
+  const wiki = NO_WIKI.has(cat.id) ? "" :
+    `<a class="pop-wiki" href="${wikiUrl(d.name)}" target="_blank" rel="noopener">Wiki ↗</a>`;
+  return `
+    <div class="pop-cat">${cat.icon} ${cat.name}</div>
+    <div class="pop-t">${d.name}</div>
+    ${d.desc ? `<div class="pop-d">${d.desc}</div>` : ""}
+    <div class="pop-actions">
+      <div class="pop-found ${on?'on':''}" data-id="${d.id}"><span>${on?'✓':'○'}</span><span>${on?'Found':'Mark as found'}</span></div>
+      ${wiki}
+    </div>`;
+}
+function bindPopup(d, cat, m){
+  const el = document.querySelector(`.pop-found[data-id="${d.id}"]`);
+  if(!el) return;
+  el.onclick = () => {
+    if(found[d.id]) delete found[d.id]; else found[d.id]=1;
+    saveFound();
+    const ref = markerRefs.find(r=>r.data.id===d.id);
+    ref.marker.setIcon(divIcon(cat, !!found[d.id]));
+    m.setPopupContent(popupHtml(d,cat));
+    bindPopup(d,cat,m);
+    refreshCounts();
+    if(hideFound) rebuildCluster();
+  };
+}
+function makeMarker(d){
+  const cat = catById[d.cat];
+  const isRegion = d.cat === "region";
+  const m = isRegion
+    ? L.marker(xy(d.px, d.py), { icon: regionIcon(d.name), interactive:false, keyboard:false })
+    : L.marker(xy(d.px, d.py), { icon: divIcon(cat, !!found[d.id]), title: d.name });
+  if(!isRegion){
+    m.bindPopup(() => popupHtml(d, cat), { closeButton:true, minWidth: 230 });
+    m.on("popupopen", () => bindPopup(d, cat, m));
+  }
+  const ref = { marker:m, data:d, cat, isRegion };
+  markerRefs.push(ref);
+  return ref;
+}
+
+const cluster = L.markerClusterGroup({
+  maxClusterRadius: 46,
+  disableClusteringAtZoom: NZ,
+  spiderfyOnMaxZoom: true,
+  showCoverageOnHover: false,
+  chunkedLoading: true,
+}).addTo(map);
+const regionLayer = L.layerGroup().addTo(map);
+MARKERS.forEach(makeMarker);
+
+Object.keys(groups).forEach(gName => {
+  const gEl = document.createElement("div");
+  const h = document.createElement("div"); h.className="group-h"; h.textContent = gName;
+  gEl.appendChild(h);
+  groups[gName].forEach(cat => {
+    catState[cat.id] = true;
+    const row = document.createElement("div"); row.className="cat"; row.dataset.cat=cat.id;
+    row.innerHTML = `<div class="ic" style="background:${cat.color}">${cat.icon}</div>
+      <div class="nm">${cat.name}</div><div class="ct" id="ct-${cat.id}"></div>`;
+    row.onclick = () => toggleCat(cat.id);
+    gEl.appendChild(row);
+  });
+  catsEl.appendChild(gEl);
+});
+
+/* ---- Cluster membership = category on (+ not hidden when found) ---- */
+const searchEl = document.getElementById("search");
+function rebuildCluster(){
+  const vis = markerRefs.filter(r => !r.isRegion && catState[r.cat.id] && !(hideFound && found[r.data.id])).map(r => r.marker);
+  cluster.clearLayers();
+  cluster.addLayers(vis);
+  rebuildRegions();
+  savePrefs();
+}
+function rebuildRegions(){
+  regionLayer.clearLayers();
+  if(!catState["region"]) return;
+  markerRefs.forEach(r => { if(r.isRegion) regionLayer.addLayer(r.marker); });
+}
+function updateRegionOpacity(){
+  const z = map.getZoom();
+  const op = (Math.max(0, Math.min(1, (z - 3.0) / 1.4)) * 0.9).toFixed(2);
+  document.getElementById("map").style.setProperty("--rl-op", op);
+}
+map.on("zoomend", updateRegionOpacity);
+updateRegionOpacity();
+
+function toggleCat(id){
+  catState[id] = !catState[id];
+  document.querySelector(`.cat[data-cat="${id}"]`).classList.toggle("off", !catState[id]);
+  rebuildCluster();
+}
+function refreshCounts(){
+  CATEGORIES.forEach(cat => {
+    const inCat = MARKERS.filter(m => m.cat===cat.id);
+    const total = inCat.length, done = inCat.filter(m => found[m.id]).length;
+    const el = document.getElementById("ct-"+cat.id);
+    if(el) el.innerHTML = total ? `<b>${done}</b>/${total}` : "";
+    const row = document.querySelector(`.cat[data-cat="${cat.id}"]`);
+    if(row) row.style.display = total ? "" : "none";
+  });
+  const coll = MARKERS.filter(m => m.cat!=='region');
+  const t = coll.length, d = coll.filter(m => found[m.id]).length, p = t ? Math.round(d/t*100) : 0;
+  document.getElementById("dashFill").style.width = p + "%";
+  document.getElementById("dashPct").textContent = p + "%";
+  document.getElementById("dashSub").textContent = `${d} / ${t} found`;
+}
+
+/* ---- Controls ---- */
+function setAll(on){
+  CATEGORIES.forEach(c => {
+    catState[c.id] = on;
+    document.querySelector(`.cat[data-cat="${c.id}"]`).classList.toggle("off", !on);
+  });
+  rebuildCluster();
+}
+document.getElementById("allOn").onclick  = () => setAll(true);
+document.getElementById("allOff").onclick = () => setAll(false);
+document.getElementById("reset").onclick = () => {
+  if(!confirm("Clear all 'found' progress?")) return;
+  found = {}; saveFound();
+  markerRefs.forEach(r => { if(!r.isRegion) r.marker.setIcon(divIcon(r.cat, false)); });
+  refreshCounts();
+};
+document.getElementById("sbToggle").onclick = () => document.getElementById("app").classList.toggle("sb-collapsed");
+if (window.matchMedia("(max-width:640px)").matches) document.getElementById("app").classList.add("sb-collapsed");
+
+document.getElementById("hideFound").onclick = (e) => {
+  hideFound = !hideFound;
+  e.currentTarget.classList.toggle("active", hideFound);
+  rebuildCluster();
+};
+
+/* ---- Backup & sharing ---- */
+document.getElementById("exportBtn").onclick = () => {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(found)], { type:"application/json" }));
+  a.download = "botw-map-progress.json"; a.click(); URL.revokeObjectURL(a.href);
+};
+document.getElementById("importBtn").onclick = () => document.getElementById("importFile").click();
+document.getElementById("importFile").onchange = (e) => {
+  const f = e.target.files[0]; if(!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    try{
+      const data = JSON.parse(rd.result);
+      if(data && typeof data === "object"){
+        Object.keys(data).forEach(k => found[k] = data[k]);
+        saveFound();
+        markerRefs.forEach(r => { if(!r.isRegion) r.marker.setIcon(divIcon(r.cat, !!found[r.data.id])); });
+        refreshCounts(); rebuildCluster();
+        alert("Progress imported — " + Object.keys(found).length + " markers found.");
+      }
+    }catch(err){ alert("Couldn't read that file."); }
+    e.target.value = "";
+  };
+  rd.readAsText(f);
+};
+document.getElementById("shareBtn").onclick = async () => {
+  const [px,py] = fromLatLng(map.getCenter());
+  location.hash = `${px}/${py}/${map.getZoom().toFixed(2)}`;
+  const btn = document.getElementById("shareBtn");
+  try{ await navigator.clipboard.writeText(location.href); btn.textContent = "Copied!"; }
+  catch(e){ btn.textContent = "In URL"; }
+  setTimeout(() => btn.textContent = "Share view", 1400);
+};
+
+/* ---- Search ---- */
+const resultsEl = document.getElementById("results");
+function renderResults(){
+  const q = searchEl.value.trim().toLowerCase();
+  if(!q){ resultsEl.style.display="none"; resultsEl.innerHTML=""; return; }
+  const matches = markerRefs.filter(r => r.data.name.toLowerCase().includes(q) ||
+    (r.data.desc||"").toLowerCase().includes(q)).slice(0,18);
+  resultsEl.style.display="block";
+  if(!matches.length){ resultsEl.innerHTML='<div class="res-empty">No matches</div>'; return; }
+  resultsEl.innerHTML="";
+  matches.forEach(r => {
+    const item = document.createElement("div"); item.className="res";
+    item.innerHTML = `<span class="res-ic" style="background:${r.cat.color}">${r.cat.icon}</span>`+
+      `<span class="res-nm">${r.data.name}</span><span class="res-cat">${r.cat.name}</span>`;
+    item.onmousedown = (e) => {
+      e.preventDefault();
+      if(!catState[r.cat.id]){ catState[r.cat.id]=true; document.querySelector(`.cat[data-cat="${r.cat.id}"]`).classList.remove("off"); rebuildCluster(); }
+      resultsEl.style.display="none"; searchEl.value=r.data.name;
+      if(r.isRegion){ map.flyTo(r.marker.getLatLng(), Math.max(map.getZoom(), 5), {duration:.6}); }
+      else { cluster.zoomToShowLayer(r.marker, () => r.marker.openPopup()); }
+    };
+    resultsEl.appendChild(item);
+  });
+}
+searchEl.oninput = renderResults;
+searchEl.onfocus = renderResults;
+searchEl.onblur  = () => setTimeout(() => { resultsEl.style.display="none"; }, 150);
+
+/* ---- Coordinate readout (for placing/checking pins) ---- */
+map.on("mousemove", e => {
+  const [px,py] = fromLatLng(e.latlng);
+  document.getElementById("coord").textContent = `px: ${px}, py: ${py}`;
+});
+map.on("click", e => {
+  const [px,py] = fromLatLng(e.latlng);
+  console.log(`world x=${((px-12000)/2).toFixed(1)} z=${((py-10000)/2).toFixed(1)}  (px:${px} py:${py})`);
+});
+
+/* ---- Restore saved filters + shared view ---- */
+function restoreState(){
+  const p = SAVED_PREFS;
+  if(p){
+    if(p.cats) CATEGORIES.forEach(c => { if(c.id in p.cats){ catState[c.id]=p.cats[c.id]; const row=document.querySelector(`.cat[data-cat="${c.id}"]`); if(row) row.classList.toggle("off", !catState[c.id]); } });
+    if(p.hf){ hideFound=true; document.getElementById("hideFound").classList.add("active"); }
+  }
+  const h = location.hash.replace(/^#/,"").split("/");
+  if(h.length===3){
+    const px=+h[0], py=+h[1], z=+h[2];
+    if(isFinite(px)&&isFinite(py)&&isFinite(z)) map.setView(xy(px,py), z, {animate:false});
+  }
+}
+refreshCounts();
+rebuildCluster();
+restoreState();
+</script>
+</body>
+</html>

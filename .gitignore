@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.egg-info/
+dist/
+build/
+.env
+.venv/
+node_modules/
+
+# Local-only Claude Code settings (per-machine permissions, etc.)
+.claude/settings.local.json
+
+# Pytest caches
+.pytest_cache/
+
+# --- BotW interactive map ---
+# Offline map tiles — large (~44 MB); regenerate with: python tools/build_tiles.py
+tiles/
+# Build cache (re-downloaded source data + logs)
+_cache/
