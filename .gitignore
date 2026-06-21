@@ -16,7 +16,7 @@ node_modules/
 .pytest_cache/
 
 # --- BotW interactive map ---
-# Offline map tiles — large (~44 MB); regenerate with: python tools/build_tiles.py
-tiles/
 # Build cache (re-downloaded source data + logs)
 _cache/
+# NOTE: tiles/ is committed (bundled for GitHub Pages hosting); regenerate with
+# python tools/build_tiles.py
