@@ -165,11 +165,25 @@
   #toast .undo{cursor:pointer;color:var(--cyan);font-weight:600}
   #toast .undo:hover{text-decoration:underline}
 
+  #sbBackdrop{display:none;position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:1050}
+
   @media(max-width:640px){
-    #sidebar{position:absolute;z-index:1100;height:100%}
+    #sidebar{position:absolute;z-index:1100;height:100%;width:86vw;min-width:0;max-width:340px}
+    #app.sb-collapsed #sidebar{margin-left:-100vw}
+    #app:not(.sb-collapsed) #sbBackdrop{display:block}
     #togglebar{left:auto;right:10px;z-index:1200}
     #app.sb-collapsed #togglebar{left:10px;right:auto}
     #coord{display:none}
+    .btn{padding:11px 7px;font-size:12px}
+    .cat{padding:10px 9px}
+    .cat .ic{width:27px;height:27px}
+    .kpill{padding:7px 13px;font-size:11.5px}
+    .ksub{padding-left:46px;gap:7px}
+    .iconbtn{width:42px;height:42px;font-size:18px}
+    .reg-h{padding:11px 18px}
+    .res{padding:11px 9px}
+    #questPanel{width:auto;left:8px;right:8px;top:auto;bottom:8px;max-height:55%}
+    .leaflet-popup-content{font-size:13.5px}
   }
 </style>
 </head>
@@ -215,6 +229,7 @@
   </aside>
 
   <div id="map"></div>
+  <div id="sbBackdrop"></div>
   <div id="togglebar">
     <button class="iconbtn" id="sbToggle" title="Toggle sidebar">☰</button>
   </div>
@@ -260,6 +275,10 @@ L.tileLayer(CONFIG.tileUrl, {
   updateWhenZooming: false, updateWhenIdle: true, keepBuffer: 3,
 }).addTo(map);
 map.fitBounds(bounds);
+if (window.innerWidth <= 640) {            // fill a tall phone instead of letterboxing the whole map
+  const cover = Math.log2(Math.max(window.innerWidth * SCALE / CONFIG.imgW, window.innerHeight * SCALE / CONFIG.imgH));
+  map.setZoom(Math.min(map.options.maxZoom, Math.max(map.getZoom(), cover)));
+}
 
 /* ---- Progress (localStorage) ---- */
 const SAVE_KEY = "botw-map-found-v1";
@@ -501,7 +520,7 @@ function buildRegions(){
   REGION_LIST.forEach(rg => {
     const row = document.createElement("div"); row.className="reg-row"; row.dataset.region=rg;
     row.innerHTML = `<div class="reg-top"><span>${esc(rg)}</span><b id="rg-${cssId(rg)}">0/0</b></div><div class="reg-bar"><div id="rgbar-${cssId(rg)}"></div></div>`;
-    row.onclick = () => { const c = regionCenter[rg]; if(c) map.flyTo(c, 4.5, {duration:.7}); };
+    row.onclick = () => { const c = regionCenter[rg]; if(c) map.flyTo(c, 4.5, {duration:.7}); closeSidebarMobile(); };
     list.appendChild(row);
   });
   head.onclick = () => { head.classList.toggle("open"); list.classList.toggle("open"); };
@@ -534,7 +553,9 @@ document.getElementById("reset").onclick = () => {
   refreshCounts(); rebuildCluster();
   showToast("All progress cleared", () => restoreFound(snap));
 };
+function closeSidebarMobile(){ if(window.innerWidth <= 640) document.getElementById("app").classList.add("sb-collapsed"); }
 document.getElementById("sbToggle").onclick = () => document.getElementById("app").classList.toggle("sb-collapsed");
+document.getElementById("sbBackdrop").onclick = () => document.getElementById("app").classList.add("sb-collapsed");
 if (window.matchMedia("(max-width:640px)").matches) document.getElementById("app").classList.add("sb-collapsed");
 
 document.getElementById("hideFound").onclick = (e) => {
@@ -624,6 +645,7 @@ function renderResults(){
       resultsEl.style.display="none"; searchEl.value=r.data.name;
       if(r.isRegion){ map.flyTo(r.marker.getLatLng(), Math.max(map.getZoom(), 5), {duration:.6}); }
       else { cluster.zoomToShowLayer(r.marker, () => r.marker.openPopup()); }
+      closeSidebarMobile();
     };
     resultsEl.appendChild(item);
   });
