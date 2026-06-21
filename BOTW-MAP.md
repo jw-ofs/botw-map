@@ -5,13 +5,17 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
 
 ![categories](https://img.shields.io/badge/markers-2668-5ad1e6) shrines · towers · koroks · treasure · enemies · places · memories route
 
-## Run it
+## ▶ Play it live
 
-- **Quickest:** open `index.html` in a browser. (If tiles don't show over `file://`, serve instead.)
+**https://jw-ofs.github.io/botw-map/** — open in any browser, on desktop or phone. Share away.
+
+## Run it locally
+
+- **Quickest:** open `index.html` in a browser.
 - **Served:** `python -m http.server 8799` then visit <http://localhost:8799>.
 
-> The `tiles/` folder (~44 MB) is **git-ignored**. On a fresh clone, regenerate it once with
-> `python tools/build_tiles.py` before the terrain will render.
+> The z0–7 tile pyramid (~44 MB) is committed so the site is self-contained (GitHub Pages serves it).
+> Regenerate the tiles anytime with `python tools/build_tiles.py`.
 
 ## Features
 
