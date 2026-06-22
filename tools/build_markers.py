@@ -156,6 +156,10 @@ def main():
     GEMS = {"Opal", "Amber", "Topaz", "Sapphire", "Ruby", "Diamond", "Luminous Stone",
             "Flint", "Star Fragment", "Giant Ancient Core", "Ancient Core"}
     CHEST_OTHER = {"Travel Medallion", "Hestu's Maracas", "Korok Leaf", "Mighty Bananas", "Treasure Chest"}
+    ARMOR_KW = ("Helm", "Cap", "Hood", "Mask", "Headwear", "Circlet", "Bandana", "Crown",
+                "Tiara", "Armor", "Tunic", "Mail", "Shirt", "Doublet", "Vest", "Jacket",
+                "Robe", "Trousers", "Greaves", "Boots", "Tights", "Leg Wraps", "Sandals",
+                "Pants", "Skull", "Uniform")
 
     def chest_class(c):
         if "Rupee" in c:
@@ -166,9 +170,11 @@ def main():
             return "gem"          # gems, ores, dragon parts (materials)
         if c in CHEST_OTHER:
             return "other"
-        return "gear"             # weapons, shields, bows, armor
+        if any(k in c for k in ARMOR_KW):
+            return "armor"        # wearable armor -> its own top-level category
+        return "gear"             # weapons, shields, bows
 
-    ci = gi = li = di = 0
+    ci = gi = li = di = ai = 0
     for key, e in loc.items():
         pts, nm = e["locations"], e["display_name"]
         if key.startswith("TBox"):
@@ -176,8 +182,12 @@ def main():
             ct = chest_class(content)
             for x, z in pts:
                 px, py = proj(x, z)
-                markers.append(dict(id=f"c{ci}", cat="chest", name=content, px=px, py=py,
-                                    desc="Treasure Chest", ct=ct)); ci += 1
+                if ct == "armor":
+                    markers.append(dict(id=f"a{ai}", cat="armor", name=content, px=px, py=py,
+                                        desc="Treasure chest")); ai += 1
+                else:
+                    markers.append(dict(id=f"c{ci}", cat="chest", name=content, px=px, py=py,
+                                        desc="Treasure Chest", ct=ct)); ci += 1
         elif key.startswith("Enemy_Guardian"):
             for x, z in pts:
                 px, py = proj(x, z)
@@ -192,7 +202,7 @@ def main():
                 px, py = proj(x, z)
                 markers.append(dict(id=f"dr{di}", cat="dragon", name=nm, px=px, py=py,
                                     desc="Roams a regional circuit")); di += 1
-    print(f"Loot: chests={ci} guardians={gi} lynels={li} dragons={di}")
+    print(f"Loot: chests={ci} armor={ai} guardians={gi} lynels={li} dragons={di}")
 
     # ---- Region assignment: nearest of the 15 Sheikah Towers (BotW's canonical map regions) ----
     towers = [(m["name"].replace(" Tower", ""), m["px"], m["py"]) for m in markers if m["cat"] == "tower"]
@@ -207,6 +217,7 @@ def main():
         dict(group="Progress", id="divinebeast", name="Divine Beasts", icon="\U0001f409", color="#d14e8c"),
         dict(group="Collectibles", id="korok", name="Korok Seeds", icon="\U0001f343", color="#6fc24f"),
         dict(group="Treasure", id="chest", name="Treasure Chests", icon="\U0001f4b0", color="#d9b24a"),
+        dict(group="Treasure", id="armor", name="Armor", icon="\U0001f9e5", color="#b486c9"),
         dict(group="Enemies", id="hinox", name="Hinox", icon="\U0001f479", color="#c0504d"),
         dict(group="Enemies", id="talus", name="Stone Talus", icon="\U0001faa8", color="#9a959a"),
         dict(group="Enemies", id="molduga", name="Molduga", icon="\U0001f988", color="#d9a441"),
