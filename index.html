@@ -138,6 +138,7 @@
   .ksub{display:flex;flex-wrap:wrap;gap:6px;padding:0 9px 8px 43px}
   .kpill{font-size:10.5px;padding:3px 10px;border-radius:11px;border:1px solid var(--line);color:var(--muted);cursor:pointer;user-select:none}
   .kpill.on{background:var(--good);color:#06220a;border-color:var(--good);font-weight:600}
+  .cat.off + .ksub{opacity:.4;pointer-events:none}
 
   /* Rich popup bits */
   .pop-img{width:100%;max-height:135px;object-fit:cover;border-radius:7px;margin-bottom:8px;background:var(--panel2);display:block}
@@ -487,6 +488,12 @@ updateRegionOpacity();
 function toggleCat(id){
   catState[id] = !catState[id];
   document.querySelector(`.cat[data-cat="${id}"]`).classList.toggle("off", !catState[id]);
+  // safety net: isolating to a category should always show it — if every sub-filter
+  // was toggled off, re-enable them so the category isn't silently empty.
+  if(catState[id] && subFilters[id] && !Object.values(subFilters[id].state).some(Boolean)){
+    Object.keys(subFilters[id].state).forEach(k => subFilters[id].state[k] = true);
+    document.querySelectorAll(`.cat[data-cat="${id}"] + .ksub .kpill`).forEach(p => p.classList.add("on"));
+  }
   rebuildCluster();
 }
 function refreshCounts(){
@@ -541,6 +548,9 @@ function setAll(on){
     catState[c.id] = on;
     document.querySelector(`.cat[data-cat="${c.id}"]`).classList.toggle("off", !on);
   });
+  // reset sub-filters so Show/Hide all never leaves a hidden "all sub-types off" state
+  Object.values(subFilters).forEach(sf => Object.keys(sf.state).forEach(k => sf.state[k] = true));
+  document.querySelectorAll(".kpill").forEach(p => p.classList.add("on"));
   rebuildCluster();
 }
 document.getElementById("allOn").onclick  = () => setAll(true);
