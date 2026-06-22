@@ -1,0 +1,1131 @@
+[
+ {
+  "set": "Hylian Set",
+  "pieces": [
+   {
+    "name": "Hylian Hood",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Hylian Tunic",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Hylian Trousers",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought at Ventest Clothing Boutique in Hateno Village (Hood 60, Tunic 120, Trousers 90 rupees); Hood also sold at Enchanted in Kakariko Village.",
+  "place": "Hateno Village",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Soldier's Set",
+  "pieces": [
+   {
+    "name": "Soldier's Helm",
+    "slot": "Head",
+    "defense": 4
+   },
+   {
+    "name": "Soldier's Armor",
+    "slot": "Body",
+    "defense": 4
+   },
+   {
+    "name": "Soldier's Greaves",
+    "slot": "Legs",
+    "defense": 4
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought at Ventest Clothing Boutique in Hateno Village (Helm 180, Armor 250, Greaves 200 rupees). Source 1 also lists the Enchanted shop in Kakariko Village.",
+  "place": "Hateno Village",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Climbing Set",
+  "pieces": [
+   {
+    "name": "Climber's Bandanna",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Climbing Gear",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Climbing Boots",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Climbing Jump Stamina Up (★★)",
+  "sourceType": "chest",
+  "sourceText": "Shrine chests: Bandanna in Ree Dahee Shrine (Dueling Peaks), Gear in Chaas Qeta Shrine (Tenoko Island), Boots in Tahno O'ah Shrine (Mount Lanayru). Rebuyable from Granté in Tarrey Town. (Source 1 listed the bonus as a single ★; sources 2 and 3 agree on ★★.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Stealth Set",
+  "pieces": [
+   {
+    "name": "Stealth Mask",
+    "slot": "Head",
+    "defense": 2
+   },
+   {
+    "name": "Stealth Chest Guard",
+    "slot": "Body",
+    "defense": 2
+   },
+   {
+    "name": "Stealth Tights",
+    "slot": "Legs",
+    "defense": 2
+   }
+  ],
+  "setBonus": "Night Speed Up (★★)",
+  "sourceType": "shop",
+  "sourceText": "Bought at Enchanted (Claree's clothing shop) in Kakariko Village (Mask 500, Chest Guard 700, Tights 600 rupees). (Source 1 listed the bonus as a single ★; sources 2 and 3 agree on ★★.)",
+  "place": "Kakariko Village",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Snowquill Set",
+  "pieces": [
+   {
+    "name": "Snowquill Headdress",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Snowquill Tunic",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Snowquill Trousers",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Unfreezable (★★)",
+  "sourceType": "shop",
+  "sourceText": "Bought at the Brazen Beak armor shop in Rito Village; each piece grants one level of Cold Resistance. (Source 1 listed the set bonus as ★★★★; sources 2 and 3 agree on ★★.)",
+  "place": "Rito Village",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Flamebreaker Set",
+  "pieces": [
+   {
+    "name": "Flamebreaker Helm",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Flamebreaker Armor",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Flamebreaker Boots",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Fireproof (★★)",
+  "sourceType": "shop",
+  "sourceText": "Bought at Ripped and Shredded in Goron City (Helm 2000, Armor 600, Boots 700 rupees). The Flamebreaker Armor is also rewarded by the Fireproof Lizard Roundup side quest. Each piece grants Flame Guard / heat resistance. (Source 1 listed the bonus as ★★★★; sources 2 and 3 agree on ★★.)",
+  "place": "Goron City",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Desert Voe Set",
+  "pieces": [
+   {
+    "name": "Desert Voe Headband",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Desert Voe Spaulder",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Desert Voe Trousers",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Shock Resistance (★★)",
+  "sourceType": "shop",
+  "sourceText": "Bought from Greta at the Gerudo Secret Club in Gerudo Town (Headband 450, Spaulder 1300, Trousers 650 rupees); also sold by Rhondson at the armor boutique in Tarrey Town. Each piece grants Heat Resistance. (Source 1 listed the bonus as ★★★★; sources 2 and 3 agree on ★★.)",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Gerudo Set (Vai Outfit)",
+  "pieces": [
+   {
+    "name": "Gerudo Veil",
+    "slot": "Head",
+    "defense": 1
+   },
+   {
+    "name": "Gerudo Top",
+    "slot": "Body",
+    "defense": 1
+   },
+   {
+    "name": "Gerudo Sirwal",
+    "slot": "Legs",
+    "defense": 1
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "First bought from Vilia at Kara Kara Bazaar during the Forbidden City Entry quest (600 rupees as a set); later sold individually at Fashion Passion in Gerudo Town (180 rupees each). Required vai disguise to enter Gerudo Town; grants Heat Resistance. Not enhanceable. (Source 2 noted a Heat-Resistant ★★ set bonus, but sources 1 and 3 list no set bonus.)",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Radiant Set",
+  "pieces": [
+   {
+    "name": "Radiant Mask",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Radiant Shirt",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Radiant Tights",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Disguise (Stal enemies) / Bone Atk. Up (★★)",
+  "sourceType": "shop",
+  "sourceText": "Bought from Greta at the Gerudo Secret Club in Gerudo Town (≈2400 rupees total plus 3 Luminous Stones per piece), unlocked via The Secret Club's Secret quest. Mask glows in the dark; Stal-type enemies ignore Link.",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Zora Set",
+  "pieces": [
+   {
+    "name": "Zora Helm",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Zora Armor",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Zora Greaves",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Swim Dash Stamina Up (★★)",
+  "sourceType": "quest",
+  "sourceText": "Zora Armor given by King Dorephan in Zora's Domain (Vah Ruta questline); Zora Helm from a sunken chest at Toto Lake; Zora Greaves rewarded for the Lynel Safari side quest (source 1 instead lists the Greaves as bought in Zora's Domain). Pieces increase swim speed. (Source 1 labeled the bonus 'Swim Speed Up ★'; sources 2 and 3 agree on 'Swim Dash Stamina Up ★★'.)",
+  "place": "Zora's Domain",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Rubber Set",
+  "pieces": [
+   {
+    "name": "Rubber Helm",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Rubber Armor",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Rubber Tights",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Unshockable (★★)",
+  "sourceType": "quest",
+  "sourceText": "Helm from the Thunder Magnet side quest (Cima at Lakeside Stable); Armor from a chest in Toh Yahsa Shrine; Tights from a chest in Qukah Nata Shrine. Rebuyable from Granté in Tarrey Town. Each piece grants Shock Resistance. (Source 1 listed the bonus as ★★★★; sources 2 and 3 agree on ★★. SourceType varies — chest vs quest — because pieces are scattered across shrine chests and a side quest.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Barbarian Set",
+  "pieces": [
+   {
+    "name": "Barbarian Helm",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Barbarian Armor",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Barbarian Leg Wraps",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Charge Atk. Stamina Up (★★)",
+  "sourceType": "chest",
+  "sourceText": "Chests in the three Lomei Labyrinth shrines: Helm in Tu Ka'loh Shrine (Lomei Labyrinth Island, Akkala), Armor in Dila Maag Shrine (South Lomei Labyrinth, Gerudo), Leg Wraps in Qaza Tokki Shrine (North Lomei Labyrinth, Hebra). Pieces boost attack power. (Source 1 listed the bonus as ★; sources 2 and 3 agree on ★★.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Ancient Set",
+  "pieces": [
+   {
+    "name": "Ancient Helm",
+    "slot": "Head",
+    "defense": 4
+   },
+   {
+    "name": "Ancient Cuirass",
+    "slot": "Body",
+    "defense": 4
+   },
+   {
+    "name": "Ancient Greaves",
+    "slot": "Legs",
+    "defense": 4
+   }
+  ],
+  "setBonus": "Ancient Proficiency (★★)",
+  "sourceType": "shop",
+  "sourceText": "Crafted/bought from Cherry the robot at the Akkala Ancient Tech Lab using ancient materials and rupees (each ≈2000 rupees plus Ancient Gears, Cores, and Springs/Screws/Shafts). Each piece grants Guardian Resist Up. (Source 2 tagged this 'other'; sources 1 and 3 treat it as a shop/craft purchase.)",
+  "place": "Akkala Ancient Tech Lab",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Hero of the Wild Set",
+  "pieces": [
+   {
+    "name": "Cap of the Wild",
+    "slot": "Head",
+    "defense": 4
+   },
+   {
+    "name": "Tunic of the Wild",
+    "slot": "Body",
+    "defense": 4
+   },
+   {
+    "name": "Trousers of the Wild",
+    "slot": "Legs",
+    "defense": 4
+   }
+  ],
+  "setBonus": "Master Sword Beam Up (★★)",
+  "sourceType": "quest",
+  "sourceText": "Reward for completing all 120 Shrines (A Gift from the Monks); the final monk directs Link to claim the set at the Forgotten Temple. (Source 1 instead places the reward in the Korok Forest / Trial of the Sword area; sources 2 and 3 agree on the Forgotten Temple. Source 3 listed the bonus as ★★★★, but sources 1 and 2 agree on ★★.)",
+  "place": "Forgotten Temple",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Dark Set",
+  "pieces": [
+   {
+    "name": "Dark Hood",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Dark Tunic",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Dark Trousers",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Night Speed Up (★★)",
+  "sourceType": "shop",
+  "sourceText": "Bought from Kilton at the Fang and Bone monster shop (≈650 Mon total) after freeing all four Divine Beasts. Not dyeable or upgradable; non-enemy NPCs react with fright. (Source 1 listed the bonus as ★; sources 2 and 3 agree on ★★.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Champion's Tunic",
+  "pieces": [
+   {
+    "name": "Champion's Tunic",
+    "slot": "Body",
+    "defense": 5
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "quest",
+  "sourceText": "Given by Impa in Kakariko Village after recovering at least one of Link's Captured Memories; reveals enemy HP (like the Hero's Charm). Standalone, cannot be sold. (Source 1 labeled it 'quest' under sourceType differently but agrees on the Impa reward.)",
+  "place": "Kakariko Village",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Warm Doublet",
+  "pieces": [
+   {
+    "name": "Warm Doublet",
+    "slot": "Body",
+    "defense": 1
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "quest",
+  "sourceText": "Given by the Old Man on the Great Plateau (cook Spicy Meat and Seafood Fry for him, or claim it from the chest at his cabin / atop Mount Hylia); grants Cold Resistance. Also buyable at Ventest Clothing Boutique in Hateno Village. (Source 1 tagged it 'starting'; sources 2 and 3 tag it 'quest'. Source 3 listed defense 3, but sources 1 and 2 agree on defense 1.)",
+  "place": "Great Plateau",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Worn Set (Starting Clothes)",
+  "pieces": [
+   {
+    "name": "Old Shirt",
+    "slot": "Body",
+    "defense": 1
+   },
+   {
+    "name": "Well-Worn Trousers",
+    "slot": "Legs",
+    "defense": 1
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "starting",
+  "sourceText": "Worn by Link at the start of the game in the Shrine of Resurrection. (Source 1 lists defense 1 per piece; source 2 lists 0. Only two sources mention this set.)",
+  "place": "",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Sand Boots",
+  "pieces": [
+   {
+    "name": "Sand Boots",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "quest",
+  "sourceText": "Reward from Bozai outside Gerudo Town (Link in vai garb) for a photo of the Statue of the Eighth Heroine, during The Eighth Heroine side quest. Rebuyable from Granté in Tarrey Town (800 rupees). Lets Link walk/move quickly on sand without sinking.",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Snow Boots",
+  "pieces": [
+   {
+    "name": "Snow Boots",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "quest",
+  "sourceText": "Reward from Bozai outside Gerudo Town (Link in vai garb) for a photo of the Sword of the Eighth Heroine (The Forgotten Sword side quest, following The Eighth Heroine). Rebuyable from Granté in Tarrey Town (800 rupees). Lets Link move quickly on snow without sinking.",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Thunder Helm",
+  "pieces": [
+   {
+    "name": "Thunder Helm",
+    "slot": "Head",
+    "defense": 0
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "quest",
+  "sourceText": "Given by Riju in Gerudo Town after completing The Thunder Helm side quest (helping all of Gerudo Town, post-Vah Naboris); grants Unshockable / lightning-strike protection. (Source 1 listed defense 3, source 3 listed defense 0; the helm's true base defense is 0, so source 3 is preferred. Source 2 did not include this item.)",
+  "place": "Gerudo Town",
+  "confidence": "medium",
+  "mapMarker": true
+ },
+ {
+  "set": "Ruby Circlet",
+  "pieces": [
+   {
+    "name": "Ruby Circlet",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Starlight Memories (Isha's jewelry shop) in Gerudo Town (500 rupees + 3 Rubies). Grants Cold Resistance.",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Sapphire Circlet",
+  "pieces": [
+   {
+    "name": "Sapphire Circlet",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Starlight Memories (Isha's jewelry shop) in Gerudo Town (800 rupees + 3 Sapphires). Grants Heat Resistance.",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Topaz Earrings",
+  "pieces": [
+   {
+    "name": "Topaz Earrings",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Starlight Memories (Isha's jewelry shop) in Gerudo Town (500 rupees + 5 Topaz). Grants Shock Resistance.",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Opal Earrings",
+  "pieces": [
+   {
+    "name": "Opal Earrings",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Starlight Memories (Isha's jewelry shop) in Gerudo Town (200 rupees + 8 Opals). Increases swim speed (Swim Speed Up).",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Diamond Circlet",
+  "pieces": [
+   {
+    "name": "Diamond Circlet",
+    "slot": "Head",
+    "defense": 4
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Starlight Memories (Isha's jewelry shop) in Gerudo Town (1500 rupees + 3 Diamonds). Decreases Guardian laser damage and can be upgraded with diamonds for high defense.",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Amber Earrings",
+  "pieces": [
+   {
+    "name": "Amber Earrings",
+    "slot": "Head",
+    "defense": 4
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Starlight Memories (Isha's jewelry shop) in Gerudo Town (rupees + Amber); provides extra defense. (Only sources 1 and 2 include this gemstone accessory.)",
+  "place": "Gerudo Town",
+  "confidence": "high",
+  "mapMarker": true
+ },
+ {
+  "set": "Bokoblin Mask",
+  "pieces": [
+   {
+    "name": "Bokoblin Mask",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Kilton at the Fang and Bone monster shop (99 Mon). Disguises Link so Bokoblins do not notice him; not enhanceable. (Sources 1 and 3 include this mask.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Moblin Mask",
+  "pieces": [
+   {
+    "name": "Moblin Mask",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Kilton at the Fang and Bone monster shop (199 Mon, after freeing one Divine Beast). Disguises Link from Moblins; not enhanceable. (Sources 1 and 3 include this mask.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Lizalfos Mask",
+  "pieces": [
+   {
+    "name": "Lizalfos Mask",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Kilton at the Fang and Bone monster shop (299 Mon, after freeing two Divine Beasts). Disguises Link from Lizalfos; not enhanceable. (Sources 1 and 3 include this mask.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Lynel Mask",
+  "pieces": [
+   {
+    "name": "Lynel Mask",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "shop",
+  "sourceText": "Bought from Kilton at the Fang and Bone monster shop (999 Mon, after freeing three Divine Beasts). Disguises Link from Lynels; not enhanceable. (Sources 1 and 3 include this mask.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Royal Guard Set",
+  "pieces": [
+   {
+    "name": "Royal Guard Cap",
+    "slot": "Head",
+    "defense": 4
+   },
+   {
+    "name": "Royal Guard Uniform",
+    "slot": "Body",
+    "defense": 4
+   },
+   {
+    "name": "Royal Guard Boots",
+    "slot": "Legs",
+    "defense": 4
+   }
+  ],
+  "setBonus": "Charge Atk. Stamina Up (★★)",
+  "sourceType": "chest",
+  "sourceText": "Found in chests inside Hyrule Castle: Cap in Princess Zelda's Room, Uniform near the Dining Hall / Armory corridor, Boots in the Guards' Chamber. Pieces have very low durability and cannot be enhanced past ★★. (Sources 1 and 2 tagged this as a DLC 'EX Royal Guard Rumors' reward; source 3 treats it as base-game Hyrule Castle chests — it is in fact base game, so 'chest' is preferred.)",
+  "place": "Hyrule Castle",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Sheik's Mask",
+  "pieces": [
+   {
+    "name": "Sheik's Mask",
+    "slot": "Head",
+    "defense": 2
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "amiibo-exclusive item scanned from the Sheik amiibo (Super Smash Bros. series); made of Sheikah stealth fabric. (Source 1 lists defense 2, source 3 lists 0; sources 1 and 3 include this item.)",
+  "place": "",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Vah Medoh Divine Helm",
+  "pieces": [
+   {
+    "name": "Vah Medoh Divine Helm",
+    "slot": "Head",
+    "defense": 4
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Scanned from the Revali amiibo. (Only source 1 includes this item.)",
+  "place": "",
+  "confidence": "low",
+  "mapMarker": false
+ },
+ {
+  "set": "Vah Naboris Divine Helm",
+  "pieces": [
+   {
+    "name": "Vah Naboris Divine Helm",
+    "slot": "Head",
+    "defense": 4
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Scanned from the Urbosa amiibo. (Only source 1 includes this item.)",
+  "place": "",
+  "confidence": "low",
+  "mapMarker": false
+ },
+ {
+  "set": "Vah Rudania Divine Helm",
+  "pieces": [
+   {
+    "name": "Vah Rudania Divine Helm",
+    "slot": "Head",
+    "defense": 4
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Scanned from the Daruk amiibo. (Only source 1 includes this item.)",
+  "place": "",
+  "confidence": "low",
+  "mapMarker": false
+ },
+ {
+  "set": "Vah Ruta Divine Helm",
+  "pieces": [
+   {
+    "name": "Vah Ruta Divine Helm",
+    "slot": "Head",
+    "defense": 4
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Scanned from the Mipha amiibo. (Only source 1 includes this item.)",
+  "place": "",
+  "confidence": "low",
+  "mapMarker": false
+ },
+ {
+  "set": "Hero's Set (Classic / amiibo Link)",
+  "pieces": [
+   {
+    "name": "Cap of the Hero",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Tunic of the Hero",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Trousers of the Hero",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Master Sword Beam Up",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Obtained via the amiibo Rune by scanning the Link (Legend of Zelda 8-bit / Super Smash Bros.) amiibo. (Sources 2 and 3 list the Master Sword Beam Up set bonus; source 1 omitted it.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Hero of the Wind Set",
+  "pieces": [
+   {
+    "name": "Cap of the Wind",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Tunic of the Wind",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Trousers of the Wind",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Master Sword Beam Up",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Obtained via the amiibo Rune by scanning the Toon Link / Wind Waker Link amiibo. (Sources 2 and 3 list the Master Sword Beam Up set bonus; source 1 omitted it.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Hero of Time Set",
+  "pieces": [
+   {
+    "name": "Cap of Time",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Tunic of Time",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Trousers of Time",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Master Sword Beam Up",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Obtained via the amiibo Rune by scanning the Ocarina of Time Link amiibo. (Sources 2 and 3 list the Master Sword Beam Up set bonus; source 1 omitted it.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Hero of Twilight Set",
+  "pieces": [
+   {
+    "name": "Cap of Twilight",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Tunic of Twilight",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Trousers of Twilight",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Master Sword Beam Up",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Obtained via the amiibo Rune by scanning the Twilight Princess Link / Super Smash Bros. Link amiibo. (Sources 2 and 3 list the Master Sword Beam Up set bonus; source 1 omitted it.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Hero of the Sky Set",
+  "pieces": [
+   {
+    "name": "Cap of the Sky",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Tunic of the Sky",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Trousers of the Sky",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Master Sword Beam Up",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Obtained via the amiibo Rune by scanning the Skyward Sword Link amiibo. (Sources 2 and 3 list the Master Sword Beam Up set bonus; source 1 omitted it.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Fierce Deity Set",
+  "pieces": [
+   {
+    "name": "Fierce Deity Mask",
+    "slot": "Head",
+    "defense": 3
+   },
+   {
+    "name": "Fierce Deity Armor",
+    "slot": "Body",
+    "defense": 3
+   },
+   {
+    "name": "Fierce Deity Boots",
+    "slot": "Legs",
+    "defense": 3
+   }
+  ],
+  "setBonus": "Charge Atk. Stamina Up (★★)",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "Obtained by scanning the Majora's Mask (Fierce Deity) Link amiibo; each piece grants Attack Up. (Source 2 lists a Charge Atk. Stamina Up ★★ set bonus and the Attack Up per-piece effect; source 1 listed no set bonus. Source 1 named the head piece \"Fierce Deity's Mask\".)",
+  "place": "",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Phantom Set",
+  "pieces": [
+   {
+    "name": "Phantom Helmet",
+    "slot": "Head",
+    "defense": 8
+   },
+   {
+    "name": "Phantom Armor",
+    "slot": "Body",
+    "defense": 8
+   },
+   {
+    "name": "Phantom Greaves",
+    "slot": "Legs",
+    "defense": 8
+   }
+  ],
+  "setBonus": "Attack Up",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC (The Champions' Ballad) reward from the EX Treasure: Phantasma side quest; found via added treasure-chest locations. Strongest DLC set defensively (24 total). (Source 1 listed no set bonus; source 3 lists Attack Up.)",
+  "place": "",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Phantom Ganon Set",
+  "pieces": [
+   {
+    "name": "Phantom Ganon Skull",
+    "slot": "Head",
+    "defense": 4
+   },
+   {
+    "name": "Phantom Ganon Armor",
+    "slot": "Body",
+    "defense": 4
+   },
+   {
+    "name": "Phantom Ganon Greaves",
+    "slot": "Legs",
+    "defense": 4
+   }
+  ],
+  "setBonus": "Disguise (Stal enemies) / Bone Atk. Up",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC (The Champions' Ballad) reward from the EX Treasure: Dark Armor side quest; chests in Faron Woods (Corta Lake, Sarjon Bridge, Ebara Forest). Grants a speed bonus and Stal-enemy disguise. (Sources 1 and 2 include this set.)",
+  "place": "",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Salvager Set",
+  "pieces": [
+   {
+    "name": "Salvager Headwear",
+    "slot": "Head",
+    "defense": 5
+   },
+   {
+    "name": "Salvager Vest",
+    "slot": "Body",
+    "defense": 5
+   },
+   {
+    "name": "Salvager Trousers",
+    "slot": "Legs",
+    "defense": 5
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC Expansion Pack reward (EX Treasure: The Merchant's Picture, Xenoblade Chronicles 2-themed side quest). (Only source 1 includes this set.)",
+  "place": "",
+  "confidence": "low",
+  "mapMarker": false
+ },
+ {
+  "set": "Tingle's Outfit",
+  "pieces": [
+   {
+    "name": "Tingle's Hood",
+    "slot": "Head",
+    "defense": 2
+   },
+   {
+    "name": "Tingle's Shirt",
+    "slot": "Body",
+    "defense": 2
+   },
+   {
+    "name": "Tingle's Tights",
+    "slot": "Legs",
+    "defense": 2
+   }
+  ],
+  "setBonus": "Night Speed Up",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC reward (EX Treasure: Fairy Clothes); Magnesis-pull chests at the Exchange Ruins, an island near Hyrule Castle, and Mabe Village Ruins. Grants a Night Speed Up / disguise bonus. (Sources 1 and 3 list defense 2 per piece; source 2 lists 0.)",
+  "place": "",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Midna's Helmet",
+  "pieces": [
+   {
+    "name": "Midna's Helmet",
+    "slot": "Head",
+    "defense": 7
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC reward (EX Treasure: Twilight Relic side quest); provides Guardian Resist Up. (Source 1 lists defense 7, source 3 lists 0; sources 1 and 3 include this item.)",
+  "place": "",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Korok Mask",
+  "pieces": [
+   {
+    "name": "Korok Mask",
+    "slot": "Head",
+    "defense": 1
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC reward (EX Strange Mask Rumors); found in a chest in an Ogre Tree hollow at the Lost Woods entrance near Korok Forest. Shakes when a hidden Korok is nearby. (All three sources agree; defense 1.)",
+  "place": "Korok Forest",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Majora's Mask",
+  "pieces": [
+   {
+    "name": "Majora's Mask",
+    "slot": "Head",
+    "defense": 0
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC reward (EX Strange Mask Rumors / EX Treasure quest); most lower-tier enemies do not notice Link while it is worn. (Sources 2 and 3 list defense 0; source 1 listed 1.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Ravio's Hood",
+  "pieces": [
+   {
+    "name": "Ravio's Hood",
+    "slot": "Head",
+    "defense": 2
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC reward (EX Strange Mask Rumors); found in a chest added by the DLC. Enhances sideways/diagonal climbing speed. (Sources 1 and 3 agree; defense 2.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Zant's Helmet",
+  "pieces": [
+   {
+    "name": "Zant's Helmet",
+    "slot": "Head",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC reward (EX Treasure: Usurper King side quest); found in a chest added by the DLC. (Sources 1 and 3 agree; defense 3.)",
+  "place": "",
+  "confidence": "high",
+  "mapMarker": false
+ },
+ {
+  "set": "Island Lobster Shirt",
+  "pieces": [
+   {
+    "name": "Island Lobster Shirt",
+    "slot": "Body",
+    "defense": 3
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC reward (EX Treasure: Garish Outfit side quest); drastically increases raft speed when using a Korok Leaf. (Source 1 lists defense 1, source 3 lists 3; both include the item.)",
+  "place": "",
+  "confidence": "medium",
+  "mapMarker": false
+ },
+ {
+  "set": "Nintendo Switch Shirt",
+  "pieces": [
+   {
+    "name": "Nintendo Switch Shirt",
+    "slot": "Body",
+    "defense": 1
+   }
+  ],
+  "setBonus": "",
+  "sourceType": "dlc_amiibo",
+  "sourceText": "DLC reward (EX Treasure: Ancient Mask side quest). (Only source 1 includes this item.)",
+  "place": "",
+  "confidence": "low",
+  "mapMarker": false
+ }
+]

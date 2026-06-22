@@ -245,6 +245,7 @@
 <script src="quests.js"></script>
 <script src="bossdata.js"></script>
 <script src="shrinedata.js"></script>
+<script src="armordata.js"></script>
 <script>
 /* ============================================================
    Base map = datamined BotW Hyrule tiles (24000x20000), served
@@ -342,6 +343,29 @@ function shrineHtml(d){
   if(s.reward) h += `<div class="pop-d">🎁 Chest: <b>${esc(s.reward)}</b></div>`;
   return h;
 }
+const SLOT_ICON = { Head:"🪖", Body:"👕", Legs:"👖" };
+function armorHtml(d){
+  const A = window.ARMORDATA; if(!A) return "";
+  const set = A.sets && A.sets[d.name];
+  const pc = A.pieces && A.pieces[d.name];
+  let h = "";
+  if(set){
+    if(set.pieces && set.pieces.length)
+      h += `<div class="pop-stat"><b>Set pieces</b><br>` +
+        set.pieces.map(p => `${SLOT_ICON[p.slot]||"•"} ${esc(p.name)}${p.defense?` · def ${p.defense}`:""}`).join("<br>") + `</div>`;
+    if(set.bonus) h += `<div class="pop-stat pop-weak"><b>Set bonus</b> ${esc(set.bonus)}</div>`;
+    if(set.source) h += `<div class="pop-sum">📍 ${esc(set.source)}</div>`;
+  } else if(pc){
+    const bits = [];
+    if(pc.slot) bits.push(`${SLOT_ICON[pc.slot]||""} ${pc.slot}`);
+    if(pc.set) bits.push(`${esc(pc.set)} set`);
+    if(pc.defense) bits.push(`def ${pc.defense}`);
+    if(bits.length) h += `<div class="pop-stat">${bits.join(" · ")}</div>`;
+    if(pc.bonus) h += `<div class="pop-stat pop-weak"><b>Set bonus</b> ${esc(pc.bonus)}</div>`;
+    if(pc.source) h += `<div class="pop-sum">📍 ${esc(pc.source)}</div>`;
+  }
+  return h;
+}
 
 function popupHtml(d, cat){
   const on = !!found[d.id];
@@ -359,6 +383,7 @@ function popupHtml(d, cat){
     ${d.desc ? `<div class="pop-d">${esc(d.desc)}</div>` : ""}
     ${bossHtml(d)}
     ${shrineHtml(d)}
+    ${armorHtml(d)}
     <div class="pop-actions">
       <div class="pop-found ${on?'on':''}" data-id="${d.id}"><span>${on?'✓':'○'}</span><span>${on?'Found':'Mark as found'}</span></div>
       <div class="pop-wiki pop-copy" data-copy="${d.id}" title="Copy link to this marker">🔗</div>

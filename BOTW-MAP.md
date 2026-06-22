@@ -3,7 +3,7 @@
 A self-contained, **fully offline** Map-Genie–style interactive map of Hyrule, built with Leaflet.
 Double-click `index.html` (or serve the folder) and explore — tiles, data, and library are all local.
 
-![categories](https://img.shields.io/badge/markers-2668-5ad1e6) shrines · towers · koroks · treasure · enemies · places · memories route
+![categories](https://img.shields.io/badge/markers-2684-5ad1e6) shrines · towers · koroks · treasure · enemies · places · memories route
 
 ## ▶ Play it live
 
@@ -19,7 +19,7 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
 
 ## Features
 
-- **2,668 datamined markers** across 18 categories (see below), pixel-accurate to the map.
+- **2,684 datamined markers** across 18 categories (see below), pixel-accurate to the map.
 - **Per-region completion** — every marker assigned to its nearest Sheikah Tower; collapsible
   bars track progress across all 15 regions, click to fly there.
 - **Captured Memories route** — the 13 memory spots as an ordered questline (numbered pins +
@@ -27,7 +27,8 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
 - **Korok seeds** split into **Ground / Flight** sub-filters; each pin shows its in-game **hint
   text** and **guide thumbnail**.
 - **Treasure chests** (1,165) with itemized contents and a Rupees/Gems/Arrows/Gear/Other
-  sub-filter, plus a dedicated **Armor** category (32 — every wearable-armor chest); plus
+  sub-filter, plus a dedicated **Armor** category (48 — 32 chest pieces + 16 buyable/earnable
+  sets, each popup showing the set, slot, base defense, set bonus, and source — `armordata.js`); plus
   **Guardians** (154), **Lynels** (26), and the **3 Dragons**.
 - **Shrine info popups** — type (Tutorial / Test of Strength / Blessing / Puzzle / Combat), chest
   reward, and the unlocking Shrine Quest for all **120 shrines** (`shrinedata.js`, sourced and
@@ -48,7 +49,7 @@ Double-click `index.html` (or serve the folder) and explore — tiles, data, and
 |---|---|
 | Progress | Shrines (120), EX/DLC Shrines (16), Sheikah Towers (15), Divine Beasts (4) |
 | Collectibles | Korok Seeds (900 — Ground/Flight filter, hint + thumbnail) |
-| Treasure | Treasure Chests (1,165 — content filter: Rupees / Gems / Arrows / Gear / Other), Armor (32 — wearable armor pieces) |
+| Treasure | Treasure Chests (1,165 — content filter: Rupees / Gems / Arrows / Gear / Other), Armor (48 — chest pieces + buyable/earnable sets, with set bonus / slot / defense / source) |
 | Enemies | Hinox (40), Stone Talus (40), Molduga (4), Guardians (154), Lynels (26), Dragons (3) |
 | Places | Towns & Villages (9), Stables (15), Great Fairy Fountains (4, named), Ancient Tech Labs (2) |
 | Reference | Location Labels (119, as text — Hyrule Castle interior rooms excluded) |
